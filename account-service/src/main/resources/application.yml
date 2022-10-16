@@ -2,8 +2,6 @@ server:
   port: 8010
 
 spring:
-  application:
-    name: account-service
   main:
     allow-bean-definition-overriding: true
   security:
@@ -17,6 +15,7 @@ spring:
         username: nacos
         password: nacos
         namespace: public
+
     sentinel:
       filter:
         enabled: false

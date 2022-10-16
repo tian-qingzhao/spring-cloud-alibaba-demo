@@ -5,7 +5,12 @@ import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.BlockExceptionHan
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.annotation.aspectj.SentinelResourceAspect;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.SpringApplicationRunListener;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
+import org.springframework.boot.context.event.EventPublishingRunListener;
+import org.springframework.cloud.bootstrap.BootstrapApplicationListener;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * <p>
@@ -31,10 +36,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *  启动seata：sh seata-server.sh -p 8091 -h 127.0.0.1 -m db</li>
  * </p>
  *
+ * 配置中心加载bootstrap文件： {@link BootstrapApplicationListener}，监听 {@link ApplicationEnvironmentPreparedEvent} 事件，
+ * 该事件由监听器 {@link EventPublishingRunListener} 发布，该监听器实现 {@link SpringApplicationRunListener} 接口，
+ * 该接口为springboot应用启动阶段准备环境的时候回调。
+ *
  * @author tianqingzhao
  * @since 2021/2/23 10:26
  */
 @SpringBootApplication
+@EnableScheduling
+//@SpringBootApplication(exclude = {SecurityAutoConfiguration.class, SecurityFilterAutoConfiguration.class})
 //@EnableBinding({Sink.class})//接收消息
 public class AccountServiceApplication {
     

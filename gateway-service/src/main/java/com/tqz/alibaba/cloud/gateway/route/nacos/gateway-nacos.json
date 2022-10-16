@@ -1,0 +1,28 @@
+[
+  {
+    "id": "order-service",
+    "order": 0,
+    "predicates": [
+      {
+        "args": {
+          "pattern": "/order/**"
+        },
+        "name": "Path"
+      }
+    ],
+    "uri": "lb://order-service"
+  },
+  {
+    "id": "oauth2-server",
+    "order": 2,
+    "predicates": [
+      {
+        "args": {
+          "pattern": "/oauth/**"
+        },
+        "name": "Path"
+      }
+    ],
+    "uri": "lb://oauth2-server"
+  }
+]

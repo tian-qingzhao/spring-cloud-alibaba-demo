@@ -1,0 +1,81 @@
+swagger:
+  basic:
+    enable: true
+    username: tianqingzhao
+    password: 123456
+
+server:
+  port: 8090
+spring:
+  application:
+    name: gateway-service
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/oauth2-config?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: root
+    password: tqz123456789.
+    driver-class-name: com.mysql.jdbc.Driver
+  security:
+    user:
+      name: admin
+      password: '000000'
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        username: nacos
+        password: nacos
+        namespace: public
+        group: DEFAULT_GROUP
+    sentinel:
+      transport:
+        dashboard: localhost:8888
+      datasource:
+        flow:
+          nacos:
+            data-id: ${spring.application.name}-sentinel-flow
+            group-id: SENTINEL_GROUP
+            data-type: json
+            rule-type: gw-flow
+            username: nacos
+            password: nacos
+    gateway:
+      discovery:
+        locator:
+          enabled: true #为true代表 我们可以通过微服务名称调用,不推荐
+      routes:
+        - id: product-service # 在所有路由定义中需要唯一，不能重复
+          uri: lb://product-service #  lb://** lb://为固定写法，表示开启负载均衡； ** 即服务在Nacos中注册的名字
+          predicates: ##Path=/product/** 使用"Path Route Predicate Factory"，规则为/product/** 的请求都还转发至微服务 product-service 中。
+            - Path=/product/**
+        - id: account-service # 在所有路由定义中需要唯一，不能重复
+          uri: lb://account-service  #lb://** lb://为固定写法，表示开启负载均衡； ** 即服务在Nacos中注册的名字
+          predicates: #Path=/account/** 使用"Path Route Predicate Factory"，规则为/account/** 的请求都还转发至微服务 account-service 中。
+            - Path=/account/**
+        - id: order-service # 在所有路由定义中需要唯一，不能重复
+          uri: lb://order-service  # lb://** lb://为固定写法，表示开启负载均衡； ** 即服务在Nacos中注册的名字
+          predicates: # Path=/order/** 使用"Path Route Predicate Factory"，规则为/order/** 的请求都还转发至微服务 order-service 中。
+            - Path=/order/**
+        - id: auth-service # 在所有路由定义中需要唯一，不能重复
+          uri: lb://auth-service  # lb://** lb://为固定写法，表示开启负载均衡； ** 即服务在Nacos中注册的名字
+          predicates: # Path=/auth/** 使用"Path Route Predicate Factory"，规则为/auth/** 的请求都还转发至微服务 auth-service 中。
+            - Path=/auth/**
+#          filters:
+#            - name: RequestRateLimiter
+#              args:
+#                redis-rate-limiter.replenishRate: 1 # 允许用户每秒处理多少个请求
+#                redis-rate-limiter.burstCapacity: 3 # 令牌桶的容量，允许在一秒钟内完成的最大请求数
+#                key-resolver: "#{@ipKeyResolver}" # 用于限流的键的解析器的 Bean 对象的名字。它使用 SpEL 表达式根据#{@beanName}从 Spring 容器中获取 Bean 对象。
+
+#  redis:
+#    host: localhost
+#    password: 123456
+#    database: 0
+#    port: 6379
+
+logging:
+  level:
+    root: info
+    org.springframework.security: debug

@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5047613-1288-4b4d-851d-89c5daecf994" name="Changes" comment="添加使用@RefreshScope注解@Scheduled注解失效场景" />
+    <list default="true" id="c5047613-1288-4b4d-851d-89c5daecf994" name="Changes" comment="添加使用@RefreshScope注解@Scheduled注解失效场景">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -118,7 +120,7 @@
       <workItem from="1666349106442" duration="3146000" />
       <workItem from="1666419514285" duration="4210000" />
       <workItem from="1666787500796" duration="1154000" />
-      <workItem from="1667039745368" duration="2722000" />
+      <workItem from="1667039745368" duration="4048000" />
     </task>
     <task id="LOCAL-00001" summary="添加使用@RefreshScope注解@Scheduled注解失效场景">
       <created>1665923525323</created>

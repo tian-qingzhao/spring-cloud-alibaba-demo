@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: account-service
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+#        namespace: public
+        group: ACCOUNT_GROUP
+        prefix: ${spring.application.name}
+        username: nacos
+        password: nacos

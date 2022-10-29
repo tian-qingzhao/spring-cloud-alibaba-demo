@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="product-service" />
+        <module name="cloud-common" />
+        <module name="auth-service" />
+        <module name="order-service" />
+        <module name="account-service" />
+        <module name="gateway-service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="account-service" target="8" />
+      <module name="auth-service" target="8" />
+      <module name="cloud-common" target="8" />
+      <module name="gateway-service" target="8" />
+      <module name="order-service" target="8" />
+      <module name="product-service" target="8" />
+      <module name="spring-cloud-alibaba-demo" target="8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

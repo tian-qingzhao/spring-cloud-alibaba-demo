@@ -61,7 +61,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../idea_workspace/demo/netty-demo-tuling" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../jdk" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -69,7 +69,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.1567623" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.import" />
+    <property name="settings.editor.selected.configurable" value="yiiguxing.plugin.translate" />
   </component>
   <component name="RebelAgentSelection">
     <selection>jr</selection>
@@ -77,6 +77,9 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\githubCode\spring-cloud-alibaba-demo\account-service\src\main\resources" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.tqz.alibaba.cloud.gateway.config" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.AccountServiceApplication">
@@ -120,7 +123,12 @@
       <workItem from="1666349106442" duration="3146000" />
       <workItem from="1666419514285" duration="4210000" />
       <workItem from="1666787500796" duration="1154000" />
-      <workItem from="1667039745368" duration="4048000" />
+      <workItem from="1667039745368" duration="5047000" />
+      <workItem from="1667115476608" duration="1106000" />
+      <workItem from="1667116767127" duration="2472000" />
+      <workItem from="1667453238524" duration="1067000" />
+      <workItem from="1667617462428" duration="3540000" />
+      <workItem from="1667622583483" duration="3647000" />
     </task>
     <task id="LOCAL-00001" summary="添加使用@RefreshScope注解@Scheduled注解失效场景">
       <created>1665923525323</created>
@@ -158,11 +166,6 @@
           <url>file://$PROJECT_DIR$/account-service/src/main/java/com/tqz/alibaba/cloud/account/config/ScheduledConfig.java</url>
           <line>46</line>
           <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$MAVEN_REPOSITORY$/org/mybatis/mybatis-spring/2.0.1/mybatis-spring-2.0.1-sources.jar!/org/mybatis/spring/mapper/MapperScannerConfigurer.java</url>
-          <line>314</line>
-          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

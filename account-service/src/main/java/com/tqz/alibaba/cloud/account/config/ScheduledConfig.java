@@ -7,11 +7,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.context.scope.refresh.RefreshScopeRefreshedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>定時任務配置類，测试使用 {@link RefreshScope} 注解热更新配置的时候，
@@ -23,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author tianqingzhao
  * @since 2022/10/16 13:01
  */
-@Component
+//@Component
 @RefreshScope
 public class ScheduledConfig implements ApplicationListener<RefreshScopeRefreshedEvent> {
 

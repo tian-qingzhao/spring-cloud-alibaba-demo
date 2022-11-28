@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5047613-1288-4b4d-851d-89c5daecf994" name="Changes" comment="添加使用@RefreshScope注解@Scheduled注解失效场景">
+    <list default="true" id="c5047613-1288-4b4d-851d-89c5daecf994" name="Changes" comment="自定义 RestTemplate 实现负载均衡">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account-service/src/main/java/com/tqz/alibaba/cloud/account/config/ResourceServerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/account-service/src/main/java/com/tqz/alibaba/cloud/account/config/ResourceServerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account-service/src/main/java/com/tqz/alibaba/cloud/account/config/ScheduledConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/account-service/src/main/java/com/tqz/alibaba/cloud/account/config/ScheduledConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +56,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ExpandSpringBootJavaOptionsPanel" value="true" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
@@ -61,7 +64,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../jdk" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -79,13 +82,30 @@
       <recent name="D:\githubCode\spring-cloud-alibaba-demo\account-service\src\main\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.tqz.alibaba.cloud.account.po" />
+      <recent name="com.tqz.alibaba.cloud.account.mapper" />
       <recent name="com.tqz.alibaba.cloud.gateway.config" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.AccountServiceApplication">
+    <configuration name="WriteLongTextController" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.tqz.alibaba.cloud.account.controller.WriteLongTextController" />
+      <module name="account-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tqz.alibaba.cloud.account.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="AccountServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="account-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.tqz.alibaba.cloud.account.AccountServiceApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SHORTEN_COMMAND_LINE" value="NONE" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -104,6 +124,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.WriteLongTextController" />
+      <item itemvalue="Spring Boot.AccountServiceApplication" />
+      <item itemvalue="Spring Boot.OrderServiceApplication" />
+      <item itemvalue="Spring Boot.ProductServiceApplication" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.WriteLongTextController" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SpringBootOptions">
@@ -128,7 +159,14 @@
       <workItem from="1667116767127" duration="2472000" />
       <workItem from="1667453238524" duration="1067000" />
       <workItem from="1667617462428" duration="3540000" />
-      <workItem from="1667622583483" duration="3647000" />
+      <workItem from="1667622583483" duration="5514000" />
+      <workItem from="1668077498892" duration="3779000" />
+      <workItem from="1668082743734" duration="957000" />
+      <workItem from="1668848658054" duration="23597000" />
+      <workItem from="1669111023458" duration="5588000" />
+      <workItem from="1669210679265" duration="1456000" />
+      <workItem from="1669357293340" duration="2011000" />
+      <workItem from="1669630127392" duration="146000" />
     </task>
     <task id="LOCAL-00001" summary="添加使用@RefreshScope注解@Scheduled注解失效场景">
       <created>1665923525323</created>
@@ -137,7 +175,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665923525324</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="自定义 RestTemplate 实现负载均衡">
+      <created>1667737012886</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1667737012886</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -157,14 +202,15 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="添加使用@RefreshScope注解@Scheduled注解失效场景" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加使用@RefreshScope注解@Scheduled注解失效场景" />
+    <MESSAGE value="自定义 RestTemplate 实现负载均衡" />
+    <option name="LAST_COMMIT_MESSAGE" value="自定义 RestTemplate 实现负载均衡" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/account-service/src/main/java/com/tqz/alibaba/cloud/account/config/ScheduledConfig.java</url>
-          <line>46</line>
+          <line>42</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>

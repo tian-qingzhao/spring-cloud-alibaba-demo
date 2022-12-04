@@ -7,7 +7,7 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * <p>
- * RestTemplate配置类
+ * RestTemplate负载均衡配置类
  * </p>
  *
  * @author tianqingzhao

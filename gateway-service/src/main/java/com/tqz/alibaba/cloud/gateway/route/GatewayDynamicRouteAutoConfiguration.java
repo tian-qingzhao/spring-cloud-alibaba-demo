@@ -19,14 +19,14 @@ import org.springframework.context.annotation.Configuration;
 public class GatewayDynamicRouteAutoConfiguration {
     
     @Bean
-    public GatewayRouteRefresher gatewayDynamicRoute(RouteDefinitionWriter routeDefinitionWriter) {
+    public GatewayRouteRefresher gatewayRouteRefresher(RouteDefinitionWriter routeDefinitionWriter) {
         return new GatewayRouteRefresher(routeDefinitionWriter);
     }
     
     @Bean
     @ConditionalOnProperty(prefix = GatewayNacosProperties.PREFIX, name = "data-id")
     public NacosConfigListenerRoute nacosConfigListenerRoute(GatewayNacosProperties gatewayNacosProperties,
-            GatewayRouteRefresher gatewayDynamicRoute) {
-        return new NacosConfigListenerRoute(gatewayNacosProperties, gatewayDynamicRoute);
+            GatewayRouteRefresher gatewayRouteRefresher) {
+        return new NacosConfigListenerRoute(gatewayNacosProperties, gatewayRouteRefresher);
     }
 }

@@ -14,7 +14,18 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * <p>
- *  <li>1.启动Nacos   15010162490</li>
+ *  <li>1.启动Nacos.
+ *      单机启动：启动命令加上 -m standalone
+ *      集群启动，需要创建三个文件夹，并在每个文件夹创建 `conf` 文件夹，并创建 `cluster.conf` 文件，该文件内容填写集群每台节点的ip:port
+ *      例如集群三台节点：
+ *          localhost:8848
+ *          localhost:8858
+ *          localhost:8868
+ *      节点1启动参数添加：-Dserver.port=8848 -Dnacos.home=D:/githubCode/nacos-2.1.2/8848/
+ *      节点2启动参数添加：-Dserver.port=8858 -Dnacos.home=D:/githubCode/nacos-2.1.2/8858/
+ *      节点3启动参数添加：-Dserver.port=8868 -Dnacos.home=D:/githubCode/nacos-2.1.2/8868/
+ *  </li>
+ *
  *  <li>2.启动Sentinel，
  *  命令：java -jar -Dserver.port=8888 -Dcsp.sentinel.dashboard.server=localhost:8888 -Dproject.name=sentinel-dashboard
  *  sentinel-dashboard-1.8.0.jar
@@ -30,13 +41,14 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  *  但是此时会有另外一个问题，注解的方式不能自定义 `limitApp` 属性，目前不支持解析。
  *  所以如果自定义了 `limitApp` 属性，只能是用web环境下的拦截器去进行处理。
  *  </li>
+ *
  *  <li>3.配置seata， 在nacos配置中心创建一个dataId为 service.vgroupMapping.account_service_group 的配置，
  *  GROUP为 SEATA_GROUP， 或者在当前应用配置文件添加 seata.service.vgroupMapping.account_service_group=default。
  *  <code>default</code> 的值为seata-server端在nacos注册中心的集群名称。
  *  启动seata：sh seata-server.sh -p 8091 -h 127.0.0.1 -m db</li>
  * </p>
  *
- * 配置中心加载bootstrap文件： {@link BootstrapApplicationListener}，监听 {@link ApplicationEnvironmentPreparedEvent} 事件，
+ * <p></>配置中心加载bootstrap文件： {@link BootstrapApplicationListener}，监听 {@link ApplicationEnvironmentPreparedEvent} 事件，
  * 该事件由监听器 {@link EventPublishingRunListener} 发布，该监听器实现 {@link SpringApplicationRunListener} 接口，
  * 该接口为springboot应用启动阶段准备环境的时候回调。
  *

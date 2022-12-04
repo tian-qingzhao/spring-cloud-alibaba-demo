@@ -4,7 +4,7 @@ import com.tqz.alibaba.cloud.common.base.Constant;
 import com.tqz.alibaba.cloud.common.base.ResultData;
 import com.tqz.alibaba.cloud.common.base.ReturnCode;
 import com.tqz.alibaba.cloud.common.exception.ServiceException;
-import com.tqz.alibaba.cloud.common.message.UserAddMoneyDTO;
+import com.tqz.alibaba.cloud.common.dto.UserAddMoneyDTO;
 import com.tqz.alibaba.cloud.order.dto.OrderDTO;
 import com.tqz.alibaba.cloud.order.feign.AccountFeignClient;
 import com.tqz.alibaba.cloud.order.feign.ProductFeignClient;
@@ -77,7 +77,6 @@ public class OrderServiceImpl implements OrderService {
         
         throw new ServiceException("下单失败！");
     }
-    
     
     @Transactional(rollbackFor = RuntimeException.class)
     public void saveOrder(Order order) {

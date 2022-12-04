@@ -10,14 +10,14 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 /**
- * <p>网关动态路由
+ * <p>网关动态路由，通过 {@link RouteDefinitionWriter} 接口更改网关路由。
  *
  * @author tianqingzhao
  * @since 2022/8/28 10:51
  */
 public class GatewayRouteRefresher implements ApplicationEventPublisherAware {
     
-    private RouteDefinitionWriter routeDefinitionWriter;
+    private final RouteDefinitionWriter routeDefinitionWriter;
     
     private ApplicationEventPublisher publisher;
     
@@ -42,9 +42,5 @@ public class GatewayRouteRefresher implements ApplicationEventPublisherAware {
     @Override
     public void setApplicationEventPublisher(ApplicationEventPublisher publisher) {
         this.publisher = publisher;
-    }
-    
-    public static void main(String[] args) {
-        System.out.println(Math.min(6000 << 6, 1000L * 60));
     }
 }

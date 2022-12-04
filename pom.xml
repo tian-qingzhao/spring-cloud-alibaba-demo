@@ -20,10 +20,11 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <spring-boot.version>2.5.4</spring-boot.version>
-        <spring-cloud.version>2020.0.4</spring-cloud.version>
-        <spring-cloud-alibaba.version>2.2.8.RELEASE</spring-cloud-alibaba.version>
+        <spring-boot.version>2.6.11</spring-boot.version>
+        <spring-cloud.version>2021.0.4</spring-cloud.version>
+        <spring-cloud-alibaba.version>2021.0.4.0</spring-cloud-alibaba.version>
         <spring-cloud-oauth2.version>2.2.5.RELEASE</spring-cloud-oauth2.version>
+        <spring-cloud-bootstrap.version>3.0.4</spring-cloud-bootstrap.version>
         <mybatis-plus.version>3.1.1</mybatis-plus.version>
         <mysql.version>5.1.47</mysql.version>
         <cloud-alibaba.version>1.0.0</cloud-alibaba.version>

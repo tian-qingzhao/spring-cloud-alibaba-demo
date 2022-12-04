@@ -61,10 +61,10 @@
         </dependency>
         
         <!-- Spring Cloud Alibaba Seata 分布式事务 -->
-      <!--  <dependency>
+        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
-        </dependency>-->
+        </dependency>
         
         <!-- Sentinel配置Nacos为持久化 -->
         <dependency>

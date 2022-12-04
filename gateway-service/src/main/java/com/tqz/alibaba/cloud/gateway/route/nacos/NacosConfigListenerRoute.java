@@ -29,18 +29,18 @@ import java.util.Properties;
 @Slf4j
 public class NacosConfigListenerRoute implements InitializingBean {
     
-    private GatewayNacosProperties gatewayNacosProperties;
+    private final GatewayNacosProperties gatewayNacosProperties;
     
-    private GatewayRouteRefresher gatewayDynamicRoute;
+    private final GatewayRouteRefresher gatewayRouteRefresher;
     
     private ConfigService configService;
     
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     
     public NacosConfigListenerRoute(GatewayNacosProperties gatewayNacosProperties,
-            GatewayRouteRefresher gatewayDynamicRoute) {
+            GatewayRouteRefresher gatewayRouteRefresher) {
         this.gatewayNacosProperties = gatewayNacosProperties;
-        this.gatewayDynamicRoute = gatewayDynamicRoute;
+        this.gatewayRouteRefresher = gatewayRouteRefresher;
     }
     
     @Override
@@ -65,7 +65,7 @@ public class NacosConfigListenerRoute implements InitializingBean {
             return;
         }
         
-        routeDefinitionList.forEach(item -> gatewayDynamicRoute.add(item));
+        routeDefinitionList.forEach(item -> gatewayRouteRefresher.add(item));
         
         registerNacosListenerGetRoute();
     }
@@ -83,7 +83,7 @@ public class NacosConfigListenerRoute implements InitializingBean {
                             log.info("获取到网关路由最新配置");
                             List<RouteDefinition> routeDefinitionList = convert(configInfo);
                             log.info("刷新网关路由");
-                            gatewayDynamicRoute.refreshAll(routeDefinitionList);
+                            gatewayRouteRefresher.refreshAll(routeDefinitionList);
                             
                         }
                     });

@@ -5,9 +5,68 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c5047613-1288-4b4d-851d-89c5daecf994" name="Changes" comment="自定义 RestTemplate 实现负载均衡">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_jsr305_3_0_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_failureaccess_1_0_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_listenablefuture_9999_0_empty_to_avoid_conflict_with_guava.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_j2objc_j2objc_annotations_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_github_openfeign_feign_hystrix_10_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hdrhistogram_HdrHistogram_2_1_9.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_loadbalancer_2_2_9_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_errorprone_error_prone_annotations_2_5_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_errorprone_error_prone_annotations_2_3_4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_20_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_30_0_jre.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_netflix_hystrix_hystrix_core_1_4_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_netflix_hystrix_hystrix_core_1_5_18.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_netflix_netflix_commons_netflix_commons_util_0_1_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_netflix_netflix_commons_netflix_commons_util_0_3_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_netflix_servo_servo_core_0_10_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_netflix_servo_servo_core_0_12_21.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_netflix_servo_servo_internal_0_10_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_bouncycastle_bcpkix_jdk15on_1_68.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_bouncycastle_bcpkix_jdk15on_1_64.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_bouncycastle_bcprov_jdk15on_1_68.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_bouncycastle_bcprov_jdk15on_1_64.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_checkerframework_checker_qual_3_10_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_checkerframework_checker_qual_3_5_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_commons_3_0_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_commons_2_2_9_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_context_3_0_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_context_2_2_9_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_gateway_server_3_0_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_gateway_server_2_2_9_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_loadbalancer_3_0_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_loadbalancer_2_2_9_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_openfeign_core_3_0_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_openfeign_core_2_2_9_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_3_0_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_2_2_9_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_gateway_3_0_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_gateway_2_2_9_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_loadbalancer_3_0_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_openfeign_2_2_9_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_openfeign_3_0_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_rsa_1_0_10_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_rsa_1_0_9_RELEASE.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account-service/src/main/java/com/tqz/alibaba/cloud/account/config/ResourceServerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/account-service/src/main/java/com/tqz/alibaba/cloud/account/config/ResourceServerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account-service/src/main/java/com/tqz/alibaba/cloud/account/config/ScheduledConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/account-service/src/main/java/com/tqz/alibaba/cloud/account/config/ScheduledConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account-service/account-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/account-service/account-service.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/account-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account-service/src/main/java/com/tqz/alibaba/cloud/account/AccountServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/account-service/src/main/java/com/tqz/alibaba/cloud/account/AccountServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account-service/src/main/java/com/tqz/alibaba/cloud/account/controller/WriteLongTextController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/account-service/src/main/java/com/tqz/alibaba/cloud/account/mapper/LongText2Mapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/account-service/src/main/java/com/tqz/alibaba/cloud/account/mapper/LongTextMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/account-service/src/main/java/com/tqz/alibaba/cloud/account/po/LongText.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/account-service/src/main/java/com/tqz/alibaba/cloud/account/po/LongText2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/account-service/src/main/resources/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/account-service/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/auth-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/auth-service.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/cloud-common.iml" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-common/cloud-common.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/com/tqz/alibaba/cloud/common/config/RestTemplateConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-common/src/main/java/com/tqz/alibaba/cloud/common/config/RestTemplateConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/com/tqz/alibaba/cloud/common/message/UserAddMoneyDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-common/src/main/java/com/tqz/alibaba/cloud/common/dto/UserAddMoneyDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/com/tqz/common/autoconfig/SwaggerAutoConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/com/tqz/common/base/Constant.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/com/tqz/common/base/ResultData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/com/tqz/common/base/ReturnCode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/com/tqz/common/config/RestTemplateConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/com/tqz/common/exception/ServiceException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/com/tqz/common/handler/CustomAccessDeniedHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/com/tqz/common/handler/CustomAuthenticationEntryPoint.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/com/tqz/common/interceptor/FeignRequestInterceptor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/com/tqz/common/message/UserAddMoneyDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/com/tqz/common/properties/SwaggerProperties.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/com/tqz/common/utils/SpringContextHolder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/com/tqz/common/utils/UuidUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/com/tqz/common/utils/WebUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-service/gateway-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/gateway-service.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/com/tqz/alibaba/cloud/gateway/route/GatewayDynamicRouteAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/com/tqz/alibaba/cloud/gateway/route/GatewayDynamicRouteAutoConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/com/tqz/alibaba/cloud/gateway/route/GatewayRouteRefresher.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/com/tqz/alibaba/cloud/gateway/route/GatewayRouteRefresher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/java/com/tqz/alibaba/cloud/gateway/route/nacos/NacosConfigListenerRoute.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/java/com/tqz/alibaba/cloud/gateway/route/nacos/NacosConfigListenerRoute.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/order-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/order-service.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/tqz/alibaba/cloud/order/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/tqz/alibaba/cloud/order/service/impl/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/product-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/product-service.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,8 +122,9 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../githubCode/spring-cloud-alibaba" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -72,7 +132,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.1567623" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="yiiguxing.plugin.translate" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RebelAgentSelection">
     <selection>jr</selection>
@@ -88,6 +148,19 @@
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.AccountServiceApplication">
+    <configuration name="TestApplicationReadyEventConfig" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.tqz.alibaba.cloud.account.config.TestApplicationReadyEventConfig" />
+      <module name="account-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tqz.alibaba.cloud.account.config.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="WriteLongTextController" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.tqz.alibaba.cloud.account.controller.WriteLongTextController" />
       <module name="account-service" />
@@ -101,9 +174,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AccountServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <configuration name="AccountServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" singleton="false">
       <module name="account-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.tqz.alibaba.cloud.account.AccountServiceApplication" />
+      <option name="VM_PARAMETERS" value="-Dserver.port=8010" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="SHORTEN_COMMAND_LINE" value="NONE" />
       <method v="2">
@@ -126,12 +200,14 @@
     </configuration>
     <list>
       <item itemvalue="Application.WriteLongTextController" />
+      <item itemvalue="Application.TestApplicationReadyEventConfig" />
       <item itemvalue="Spring Boot.AccountServiceApplication" />
       <item itemvalue="Spring Boot.OrderServiceApplication" />
       <item itemvalue="Spring Boot.ProductServiceApplication" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.TestApplicationReadyEventConfig" />
         <item itemvalue="Application.WriteLongTextController" />
       </list>
     </recent_temporary>
@@ -167,6 +243,13 @@
       <workItem from="1669210679265" duration="1456000" />
       <workItem from="1669357293340" duration="2011000" />
       <workItem from="1669630127392" duration="146000" />
+      <workItem from="1669630587457" duration="2815000" />
+      <workItem from="1669707074916" duration="6635000" />
+      <workItem from="1669786882286" duration="12911000" />
+      <workItem from="1669875219824" duration="14620000" />
+      <workItem from="1669947549612" duration="13169000" />
+      <workItem from="1670136636980" duration="9899000" />
+      <workItem from="1670149941096" duration="6135000" />
     </task>
     <task id="LOCAL-00001" summary="添加使用@RefreshScope注解@Scheduled注解失效场景">
       <created>1665923525323</created>
@@ -208,10 +291,10 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/account-service/src/main/java/com/tqz/alibaba/cloud/account/config/ScheduledConfig.java</url>
-          <line>42</line>
-          <option name="timeStamp" value="6" />
+        <line-breakpoint type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/2.5.4/spring-boot-2.5.4-sources.jar!/org/springframework/boot/context/event/EventPublishingRunListener.java</url>
+          <line>110</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

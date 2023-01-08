@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848 # localhost:8848, localhost:8858, localhost:8868
+        # namespace: public # Nacos配置中心的命名空间如果使用 public 则不能指定，否则会拉取不到配置
+        group: GATEWAY_GROUP
+        prefix: ${spring.application.name}
+        username: nacos
+        password: nacos

@@ -20,7 +20,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
  * @author tianqingzhao
  * @since 2022/8/11 15:32
  */
-//@Configuration
+@Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     

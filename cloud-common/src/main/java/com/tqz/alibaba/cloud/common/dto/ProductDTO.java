@@ -3,18 +3,20 @@ package com.tqz.alibaba.cloud.common.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 
 /**
  * <p>
- * 接口传输层
+ * 产品信息接口传输层
  * </p>
  *
  * @author tianqingzhao
  * @since 2021/2/26 10:02
  */
 @Data
+@ToString
 @ApiModel(value = "产品封装类ProductDTO", description = "产品相关信息封装，用于接口传参")
 public class ProductDTO {
     

@@ -19,7 +19,7 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class JdbcReactiveAuthenticationManager implements ReactiveAuthenticationManager {
     
-    private TokenStore tokenStore;
+    private final TokenStore tokenStore;
     
     public JdbcReactiveAuthenticationManager(TokenStore tokenStore) {
         this.tokenStore = tokenStore;
@@ -37,9 +37,9 @@ public class JdbcReactiveAuthenticationManager implements ReactiveAuthentication
                     OAuth2AccessToken oAuth2AccessToken = this.tokenStore.readAccessToken(accessToken);
                     // 根据access_token从数据库获取不到OAuth2AccessToken
                     if (oAuth2AccessToken == null) {
-                        return Mono.error(new InvalidTokenException("invalid access token,please check"));
+                        return Mono.error(new InvalidTokenException("无效的token，请检查token是否正确"));
                     } else if (oAuth2AccessToken.isExpired()) {
-                        return Mono.error(new InvalidTokenException("access token has expired,please reacquire token"));
+                        return Mono.error(new InvalidTokenException("token已过期，请重新获取token"));
                     }
                     
                     OAuth2Authentication oAuth2Authentication = this.tokenStore.readAuthentication(accessToken);

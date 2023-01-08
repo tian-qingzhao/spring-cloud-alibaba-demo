@@ -8,9 +8,9 @@ import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConv
  * @author tianqingzhao
  * @since 2022/8/12 9:19
  */
-public class CustomAccessTokenConverter extends DefaultAccessTokenConverter{
-
-    public CustomAccessTokenConverter(){
+public class CustomAccessTokenConverter extends DefaultAccessTokenConverter {
+    
+    public CustomAccessTokenConverter() {
         super.setUserTokenConverter(new CustomUserAuthenticationConverter());
     }
 }

@@ -20,7 +20,7 @@ public class SwaggerProperties {
     /**
      * 是否启用swagger,生产环境建议关闭
      */
-    private boolean enabled;
+    private boolean enabled = true;
 
     /**
      * 文档标题

@@ -25,9 +25,9 @@ import java.util.Set;
 @Slf4j
 public class AccessManager implements ReactiveAuthorizationManager<AuthorizationContext> {
     
-    private Set<String> permitAll = new ConcurrentHashSet<>();
+    private final Set<String> permitAll = new ConcurrentHashSet<>();
     
-    private static final AntPathMatcher antPathMatcher = new AntPathMatcher();
+    private static final AntPathMatcher ANT_PATH_MATCHER = new AntPathMatcher();
     
     public AccessManager() {
         permitAll.add("/");
@@ -49,17 +49,15 @@ public class AccessManager implements ReactiveAuthorizationManager<Authorization
     public Mono<AuthorizationDecision> check(Mono<Authentication> authenticationMono,
             AuthorizationContext authorizationContext) {
         ServerWebExchange exchange = authorizationContext.getExchange();
-        //请求资源
+        // 请求资源
         String requestPath = exchange.getRequest().getURI().getPath();
         // 是否直接放行
         if (permitAll(requestPath)) {
             return Mono.just(new AuthorizationDecision(true));
         }
         
-        return authenticationMono.map(auth -> {
-            return new AuthorizationDecision(checkAuthorities(exchange, auth, requestPath));
-        }).defaultIfEmpty(new AuthorizationDecision(false));
-        
+        return authenticationMono.map(auth -> new AuthorizationDecision(checkAuthorities(exchange, auth, requestPath)))
+                .defaultIfEmpty(new AuthorizationDecision(false));
     }
     
     /**
@@ -69,7 +67,7 @@ public class AccessManager implements ReactiveAuthorizationManager<Authorization
      * @return
      */
     private boolean permitAll(String requestPath) {
-        return permitAll.stream().filter(r -> antPathMatcher.match(r, requestPath)).findFirst().isPresent();
+        return permitAll.stream().anyMatch(r -> ANT_PATH_MATCHER.match(r, requestPath));
     }
     
     //权限校验

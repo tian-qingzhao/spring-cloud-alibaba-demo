@@ -1,6 +1,6 @@
 package com.tqz.alibaba.cloud.auth.util;
 
-import com.tqz.alibaba.cloud.auth.user.SecurityUser;
+import com.tqz.alibaba.cloud.common.user.SecurityUser;
 import lombok.experimental.UtilityClass;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

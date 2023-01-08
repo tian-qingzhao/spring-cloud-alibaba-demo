@@ -3,6 +3,7 @@ package com.tqz.alibaba.cloud.order.config;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -13,21 +14,19 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * <p>
- * 微服务之间feign调用请求头丢失的问题
- * </p>
+ * <p>解决微服务之间feign调用请求头丢失的问题
  *
  * @author tianqingzhao
- * @since 2021/2/26 9:59
+ * @since 2022/12/31 23:18
  */
-//@Configuration
+@Configuration
 @Slf4j
 public class FeignRequestInterceptor implements RequestInterceptor {
     
     /**
      * 微服务之间传递的唯一标识 XID
      */
-    public static final String T_REQUEST_ID = "TX_RID";
+    public static final String T_REQUEST_ID = "X-Request-Id";
     
     @Override
     public void apply(RequestTemplate template) {
@@ -35,8 +34,8 @@ public class FeignRequestInterceptor implements RequestInterceptor {
         if (httpServletRequest != null) {
             Map<String, String> headers = getHeaders(httpServletRequest);
             // 传递所有请求头,防止部分丢失
-            //此处也可以只传递认证的header
-            //requestTemplate.header("Authorization", request.getHeader("Authorization"));
+            // 此处也可以只传递认证的header
+            // requestTemplate.header("Authorization", request.getHeader("Authorization"));
             for (Map.Entry<String, String> entry : headers.entrySet()) {
                 template.header(entry.getKey(), entry.getValue());
             }
@@ -50,7 +49,11 @@ public class FeignRequestInterceptor implements RequestInterceptor {
         }
     }
     
-    
+    /**
+     * 获取 {@link HttpServletRequest}
+     *
+     * @return HttpServletRequest
+     */
     private HttpServletRequest getHttpServletRequest() {
         try {
             return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
@@ -64,6 +67,7 @@ public class FeignRequestInterceptor implements RequestInterceptor {
      */
     private Map<String, String> getHeaders(HttpServletRequest request) {
         Map<String, String> map = new LinkedHashMap<>();
+        
         Enumeration<String> enumeration = request.getHeaderNames();
         if (enumeration != null) {
             while (enumeration.hasMoreElements()) {
@@ -72,6 +76,8 @@ public class FeignRequestInterceptor implements RequestInterceptor {
                 map.put(key, value);
             }
         }
+        
         return map;
     }
+    
 }

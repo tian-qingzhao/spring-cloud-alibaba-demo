@@ -1,0 +1,104 @@
+server:
+  port: 8031
+
+spring:
+  application:
+    name: order-service
+  security:
+    user:
+      name: admin
+      password: 111111
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 172.17.0.3:8848
+        username: nacos
+        password: nacos
+        namespace: public
+    sentinel:
+      filter:
+        enabled: true
+      transport:
+        dashboard: localhost:8888
+      #        client-ip: 192.168.0.108
+      # 取消延迟加载
+      eager: true
+      datasource:
+        flow:
+          nacos:
+            server-addr: 172.17.0.3:8848
+            data-id: ${spring.application.name}-sentinel-flow
+            group-id: SENTINEL_GROUP
+            data-type: json
+            rule-type: flow
+            username: nacos
+            password: nacos
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://172.17.0.2:3306/cloud-alibaba?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: root
+    password: tqz123456789.
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+
+# oauth2.0
+security:
+  oauth2:
+    resource:
+      id: order-service
+      loadBalanced: true # 调用获取用户接口的时候是否需要使用负载均衡，true的话表示需要，并且 user-info-uri 需要使用服务名
+      user-info-uri: http://auth-service/user/current/get
+
+### swagger自定义配置属性
+tqz:
+  swagger:
+    enabled: true
+    title: order-service在线接口平台
+    description: order-service微服务相关接口
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+  sentinel:
+    enabled: true
+
+# within rocketmq
+rocketmq:
+  name-server: 81.70.157.38:9876
+  producer:
+    group: cloud-group
+
+# 指定日志级别
+logging:
+  level:
+    com.alibaba.nacos: error
+    org.apache.rocketmq.remoting.common: error
+
+
+seata:
+  enabled: true # Seata开关，默认开启
+  application-id: ${spring.application.name}
+  tx-service-group: order_service_group
+  enable-auto-data-source-proxy: true
+  config:
+    type: nacos
+    nacos:
+      # namespace: public # Nacos配置中心的命名空间如果使用 public 则不能指定，否则会拉取不到配置
+      serverAddr: 172.17.0.3:8848
+      group: SEATA_GROUP
+      userName: nacos
+      password: nacos
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: 172.17.0.3:8848
+      namespace: public
+      userName: nacos
+      password: nacos
+      cluster: default

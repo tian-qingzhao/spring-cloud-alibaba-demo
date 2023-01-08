@@ -30,7 +30,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         String requestUri = request.getRequestURI();
         log.error("access denied path,{}",requestUri);
         log.error("CustomDeniedHandler",ex);
-        ResultData<String> resultData = ResultData.fail(ReturnCode.RC401.getCode(), ReturnCode.RC401.getMessage());
+        ResultData<String> resultData = ResultData.fail(ReturnCode.RC403.getCode(), ReturnCode.RC403.getMessage());
         resultData.setData(requestUri);
 
         WebUtils.writeJson(response,resultData);

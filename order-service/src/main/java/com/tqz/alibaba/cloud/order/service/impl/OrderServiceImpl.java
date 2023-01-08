@@ -3,9 +3,11 @@ package com.tqz.alibaba.cloud.order.service.impl;
 import com.tqz.alibaba.cloud.common.base.Constant;
 import com.tqz.alibaba.cloud.common.base.ResultData;
 import com.tqz.alibaba.cloud.common.base.ReturnCode;
+import com.tqz.alibaba.cloud.common.dto.AccountDTO;
+import com.tqz.alibaba.cloud.common.dto.ProductDTO;
 import com.tqz.alibaba.cloud.common.exception.ServiceException;
 import com.tqz.alibaba.cloud.common.dto.UserAddMoneyDTO;
-import com.tqz.alibaba.cloud.order.dto.OrderDTO;
+import com.tqz.alibaba.cloud.common.dto.OrderDTO;
 import com.tqz.alibaba.cloud.order.feign.AccountFeignClient;
 import com.tqz.alibaba.cloud.order.feign.ProductFeignClient;
 import com.tqz.alibaba.cloud.order.mapper.OrderMapper;
@@ -13,6 +15,7 @@ import com.tqz.alibaba.cloud.order.mapper.RocketMqTransactionLogMapper;
 import com.tqz.alibaba.cloud.order.po.Order;
 import com.tqz.alibaba.cloud.order.po.RocketmqTransactionLog;
 import com.tqz.alibaba.cloud.order.service.OrderService;
+import com.tqz.alibaba.cloud.order.vo.OrderVO;
 import io.seata.core.context.RootContext;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -53,15 +57,22 @@ public class OrderServiceImpl implements OrderService {
     
     private final ProductFeignClient productFeignClient;
     
+    private static final String ERROR = "error";
+    
     @GlobalTransactional(name = "TX_ORDER_CREATE")
     @Override
-    public ResultData<OrderDTO> createOrder(OrderDTO orderDTO) {
+    public ResultData<OrderDTO> createOrder(OrderDTO orderDTO, String error) {
         orderDTO.setOrderNo(UUID.randomUUID().toString());
         
         log.info("ORDER XID is: {}", RootContext.getXID());
         
         ResultData<BigDecimal> productResult = productFeignClient.deduct(orderDTO.getProductCode(),
                 orderDTO.getCount());
+        
+        if (ERROR.equals(error)) {
+            throw new RuntimeException("下订单接口故意抛出的异常，测试分布式事务");
+        }
+        
         if (productResult.getCode() == ReturnCode.RC100.getCode()) {
             ResultData<String> accountResult = accountFeignClient.reduce(orderDTO.getAccountCode(),
                     productResult.getData());
@@ -78,11 +89,6 @@ public class OrderServiceImpl implements OrderService {
         throw new ServiceException("下单失败！");
     }
     
-    @Transactional(rollbackFor = RuntimeException.class)
-    public void saveOrder(Order order) {
-        orderMapper.insert(order);
-    }
-    
     @Override
     public OrderDTO selectByNo(String orderNo) {
         OrderDTO orderDTO = new OrderDTO();
@@ -95,14 +101,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void changeStatus(Integer id, String status) {
         orderMapper.changeStatus(id, status);
-    }
-    
-    @Transactional(rollbackFor = RuntimeException.class)
-    @Override
-    public void changeStatuswithRocketMqLog(Integer id, String status, String transactionId) {
-        orderMapper.changeStatus(id, status);
-        rocketMqTransactionLogMapper.insert(
-                RocketmqTransactionLog.builder().transactionId(transactionId).log("执行删除订单操作").build());
     }
     
     @Override
@@ -120,5 +118,38 @@ public class OrderServiceImpl implements OrderService {
             
             //            changeStatus(order.getId(), CloudConstant.INVALID_STATUS);
         }
+    }
+    
+    @Transactional(rollbackFor = RuntimeException.class)
+    @Override
+    public void changeStatuswithRocketMqLog(Integer id, String status, String transactionId) {
+        orderMapper.changeStatus(id, status);
+        rocketMqTransactionLogMapper.insert(
+                RocketmqTransactionLog.builder().transactionId(transactionId).log("执行删除订单操作").build());
+    }
+    
+    @Override
+    public ResultData<OrderVO> selectByAccountCodeAndProductCode(String accountCode, String productCode) {
+        OrderVO orderVO = new OrderVO();
+        
+        ResultData<AccountDTO> accountResult = accountFeignClient.getByCode(accountCode);
+        Optional<AccountDTO> accountDTO = Optional.ofNullable(accountResult.getData());
+        AccountDTO account = accountDTO.orElse(new AccountDTO());
+        log.info("查询账户信息成功：{}", account);
+        
+        ResultData<ProductDTO> productResult = productFeignClient.getByCode(productCode);
+        Optional<ProductDTO> productDTO = Optional.ofNullable(productResult.getData());
+        ProductDTO product = productDTO.orElse(new ProductDTO());
+        log.info("查询产品信息成功：{}", product);
+        
+        orderVO.setAccountDTO(account);
+        orderVO.setProductDTO(product);
+        
+        return ResultData.success(orderVO);
+    }
+    
+    @Transactional(rollbackFor = RuntimeException.class)
+    public void saveOrder(Order order) {
+        orderMapper.insert(order);
     }
 }

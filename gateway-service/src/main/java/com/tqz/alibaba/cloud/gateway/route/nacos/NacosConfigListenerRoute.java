@@ -18,6 +18,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Properties;
 
 /**
@@ -45,6 +46,11 @@ public class NacosConfigListenerRoute implements InitializingBean {
     
     @Override
     public void afterPropertiesSet() throws Exception {
+        if (!gatewayNacosProperties.isEnabled()) {
+            log.info("网关动态路由关闭从Nacos配置中心获取数据");
+            return;
+        }
+        
         initNacosConfigService();
         
         if (configService == null) {
@@ -54,18 +60,17 @@ public class NacosConfigListenerRoute implements InitializingBean {
         
         String configStr = configService.getConfig(gatewayNacosProperties.getDataId(),
                 gatewayNacosProperties.getGroup(), gatewayNacosProperties.getTimeoutMs());
+        log.info("项目启动首次获取到网关路由配置：{}", configStr);
         if (configStr == null) {
             return;
         }
-        
-        log.info("网关路由配置：{}", configStr);
         
         List<RouteDefinition> routeDefinitionList = convert(configStr);
         if (CollectionUtils.isEmpty(routeDefinitionList)) {
             return;
         }
         
-        routeDefinitionList.forEach(item -> gatewayRouteRefresher.add(item));
+        routeDefinitionList.forEach(gatewayRouteRefresher::add);
         
         registerNacosListenerGetRoute();
     }
@@ -80,11 +85,11 @@ public class NacosConfigListenerRoute implements InitializingBean {
                         
                         @Override
                         public void receiveConfigInfo(String configInfo) {
-                            log.info("获取到网关路由最新配置");
+                            log.info("Nacos监听器监听到网关路由配置变化：{}", configInfo);
                             List<RouteDefinition> routeDefinitionList = convert(configInfo);
-                            log.info("刷新网关路由");
-                            gatewayRouteRefresher.refreshAll(routeDefinitionList);
                             
+                            gatewayRouteRefresher.refreshAll(
+                                    Optional.ofNullable(routeDefinitionList).orElseGet(ArrayList::new));
                         }
                     });
         } catch (NacosException e) {

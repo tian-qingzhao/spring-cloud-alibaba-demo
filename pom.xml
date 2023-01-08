@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
+    
     <groupId>com.tqz.alibaba.cloud</groupId>
     <artifactId>spring-cloud-alibaba-demo</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>${revision}</version>
+    
     <modules>
         <module>account-service</module>
         <module>cloud-common</module>
@@ -15,31 +16,31 @@
         <module>order-service</module>
         <module>gateway-service</module>
         <module>auth-service</module>
+        <module>cloud-bom</module>
     </modules>
-
+    
     <properties>
+        <revision>1.0.0</revision>
+        <java.version>1.8</java.version>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <spring-boot.version>2.6.11</spring-boot.version>
-        <spring-cloud.version>2021.0.4</spring-cloud.version>
-        <spring-cloud-alibaba.version>2021.0.4.0</spring-cloud-alibaba.version>
-        <spring-cloud-oauth2.version>2.2.5.RELEASE</spring-cloud-oauth2.version>
-        <spring-cloud-bootstrap.version>3.0.4</spring-cloud-bootstrap.version>
-        <mybatis-plus.version>3.1.1</mybatis-plus.version>
-        <mysql.version>5.1.47</mysql.version>
-        <cloud-alibaba.version>1.0.0</cloud-alibaba.version>
-        <swagger.version>2.9.2</swagger.version>
-        <swagger-bootstrap-ui.version>1.9.6</swagger-bootstrap-ui.version>
-        <hutool.version>4.1.9</hutool.version>
-        <alibaba.fastjson.version>1.2.60</alibaba.fastjson.version>
-        <cloud-common.version>1.0.0</cloud-common.version>
-        <rocketmq.version>2.1.0</rocketmq.version>
-        <junit.version>4.13.2</junit.version>
+        <encoding>UTF-8</encoding>
+        <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
+        <spring-cloud.version>Hoxton.SR12</spring-cloud.version>
+        <spring-cloud-alibaba.version>2.2.9.RELEASE</spring-cloud-alibaba.version>
     </properties>
-
+    
     <dependencyManagement>
         <dependencies>
-
+            
+            <dependency>
+                <groupId>com.tqz.alibaba.cloud</groupId>
+                <artifactId>cloud-bom</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            
             <!-- Spring Boot 父依赖 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -48,7 +49,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
+            
             <!-- Spring Cloud 父依赖-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
@@ -57,7 +58,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
+            
             <!-- Spring Cloud Alibaba 父依赖-->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
@@ -66,81 +67,37 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-            <!-- Spring Cloud OAuth2 -->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-oauth2</artifactId>
-                <version>${spring-cloud-oauth2.version}</version>
-            </dependency>
-
-            <!-- Mysql驱动 -->
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.version}</version>
-            </dependency>
-
-            <!-- Mybatis-Plus -->
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus.version}</version>
-            </dependency>
-
-            <!-- Swagger2 -->
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>${swagger.version}</version>
-            </dependency>
-
-            <!-- swagger-ui界面 -->
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
-                <version>${swagger.version}</version>
-            </dependency>
-
-            <!-- swagger-bootstrap-ui界面 直接访问http://ip:端口号/doc.html-->
-            <dependency>
-                <groupId>com.github.xiaoymin</groupId>
-                <artifactId>swagger-bootstrap-ui</artifactId>
-                <version>${swagger-bootstrap-ui.version}</version>
-            </dependency>
-
-            <!-- hutool工具包 -->
-            <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>${hutool.version}</version>
-            </dependency>
-
-            <!-- fastjson -->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${alibaba.fastjson.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.tqz.alibaba.cloud</groupId>
-                <artifactId>cloud-common</artifactId>
-                <version>${cloud-common.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.rocketmq</groupId>
-                <artifactId>rocketmq-spring-boot-starter</artifactId>
-                <version>${rocketmq.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
+    
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <activatedProperties>dev</activatedProperties>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <activatedProperties>test</activatedProperties>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <activatedProperties>prod</activatedProperties>
+            </properties>
+        </profile>
+        <profile>
+            <id>docker</id>
+            <properties>
+                <activatedProperties>docker</activatedProperties>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>

@@ -1,6 +1,6 @@
 package com.tqz.alibaba.cloud.auth.security;
 
-import com.tqz.alibaba.cloud.auth.user.SecurityUser;
+import com.tqz.alibaba.cloud.common.user.SecurityUser;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;

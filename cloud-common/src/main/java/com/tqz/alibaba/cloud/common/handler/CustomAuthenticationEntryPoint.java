@@ -31,7 +31,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         String requestUri = request.getRequestURI();
         log.error("AuthenticationEntryPoint Path is {},access_token is {}",requestUri,accessToken);
         log.error("CustomAuthenticationEntryPoint",ex);
-        ResultData<Object> resultData = ResultData.fail(ReturnCode.RC403.getCode(), ReturnCode.RC403.getMessage());
+        ResultData<Object> resultData = ResultData.fail(ReturnCode.RC401.getCode(), ReturnCode.RC401.getMessage());
         resultData.setData(requestUri);
         response.setStatus(resultData.getCode());
 

@@ -7,10 +7,13 @@ import com.alibaba.csp.sentinel.annotation.aspectj.SentinelResourceAspect;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringApplicationRunListener;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.config.ConfigFileApplicationListener;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.boot.context.event.EventPublishingRunListener;
 import org.springframework.cloud.bootstrap.BootstrapApplicationListener;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * <p>
@@ -37,7 +40,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  *  如果既有web环境又使用了 {@link SentinelResource} 注解，可以通过以下两种方式解决：
  *  (1).sentinel定义的resource一定不能添加 / 的前缀，
  *  否则 {@link AbstractSentinelInterceptor} 会拦截一次， {@link SentinelResourceAspect} 切面也会拦截一次。
- *  (2).使用 `spring.cloud.sentinel.filter.enabled` 关闭拦截器。
+ *  (2).使用 `spring.cloud.sentinel.filter.enabled` 配置属性为 false 关闭拦截器。
  *  但是此时会有另外一个问题，注解的方式不能自定义 `limitApp` 属性，目前不支持解析。
  *  所以如果自定义了 `limitApp` 属性，只能是用web环境下的拦截器去进行处理。
  *  </li>
@@ -51,17 +54,21 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * <p></>配置中心加载bootstrap文件： {@link BootstrapApplicationListener}，监听 {@link ApplicationEnvironmentPreparedEvent} 事件，
  * 该事件由监听器 {@link EventPublishingRunListener} 发布，该监听器实现 {@link SpringApplicationRunListener} 接口，
  * 该接口为springboot应用启动阶段准备环境的时候回调。
+ * {@link ConfigFileApplicationListener} 处理 resources 目录下的配置文件 ，该类从 Spring Boot 2.4.x 版本被废弃，3.x版本被移除，
+ * 从 Spring Boot 2.4.x 版本开始使用 <code>ConfigDataEnvironmentPostProcessor</code> 类取代。
  *
  * @author tianqingzhao
  * @since 2021/2/23 10:26
  */
 @SpringBootApplication
 @EnableScheduling
-//@SpringBootApplication(exclude = {SecurityAutoConfiguration.class, SecurityFilterAutoConfiguration.class})
 //@EnableBinding({Sink.class})//接收消息
+@EnableSwagger2
 public class AccountServiceApplication {
     
     public static void main(String[] args) {
-        SpringApplication.run(AccountServiceApplication.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(AccountServiceApplication.class, args);
+    
+        System.out.println(context.getEnvironment().getProperty("test"));
     }
 }

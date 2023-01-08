@@ -23,7 +23,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Value("${security.oauth2.resource.id}")
-    private String resourceId ;
+    private String resourceId;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -40,8 +40,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .and()
                 //统一自定义异常
                 .exceptionHandling()
-                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .accessDeniedHandler(new CustomAccessDeniedHandler())
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .and()
                 .csrf().disable();
     }

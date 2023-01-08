@@ -3,8 +3,8 @@ package com.tqz.alibaba.cloud.order.feign.fallback;
 import com.tqz.alibaba.cloud.common.base.ResultData;
 import com.tqz.alibaba.cloud.common.dto.ProductDTO;
 import com.tqz.alibaba.cloud.order.feign.ProductFeignClient;
+import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

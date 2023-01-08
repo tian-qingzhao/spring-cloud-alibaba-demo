@@ -3,7 +3,6 @@ package com.tqz.alibaba.cloud.gateway.route.nacos;
 import com.alibaba.nacos.api.common.Constants;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 
 /**
  * <p>网关使用nacos做动态路由的配置属性类
@@ -23,7 +22,7 @@ public class GatewayNacosProperties {
     /**
      * nacos服务端地址
      */
-    private String serverAddr = "http://localhost:8848";
+    private String serverAddr = "localhost:8848";
     
     /**
      * 命名空间
@@ -54,6 +53,11 @@ public class GatewayNacosProperties {
      * 拉取配置超时时间，单位毫秒
      */
     private long timeoutMs = 3000L;
+    
+    /**
+     * 是否开启，默认开启
+     */
+    private boolean enabled = true;
     
     public String getServerAddr() {
         return serverAddr;
@@ -109,5 +113,13 @@ public class GatewayNacosProperties {
     
     public void setTimeoutMs(long timeoutMs) {
         this.timeoutMs = timeoutMs;
+    }
+    
+    public boolean isEnabled() {
+        return enabled;
+    }
+    
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

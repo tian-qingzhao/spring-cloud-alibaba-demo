@@ -39,6 +39,6 @@ public class SentinelBlockExceptionHandler implements BlockExceptionHandler {
         
         response.setContentType("application/json;charset=utf-8");
         response.setStatus(code);
-        response.getWriter().println("{\"message\": " + message + ", \"code\": " + code + "}");
+        response.getWriter().println("{\"message\": \"" + message + "\", \"code\": \"" + code + "\"}");
     }
 }

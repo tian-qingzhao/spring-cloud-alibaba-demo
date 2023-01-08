@@ -5,11 +5,13 @@
     <parent>
         <artifactId>spring-cloud-alibaba-demo</artifactId>
         <groupId>com.tqz.alibaba.cloud</groupId>
-        <version>1.0.0</version>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
     
+    <modelVersion>4.0.0</modelVersion>
     <artifactId>account-service</artifactId>
+    <packaging>jar</packaging>
     
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -37,9 +39,15 @@
         </dependency>
     
         <!-- Spring Cloud Bootstrap (如果使用配置中心，Spring Cloud3.0.0版本之前不需要该依赖，从3.0.0版本开始需要)-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>-->
+    
+        <!-- Spring Cloud OpenFeign 远程调用 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
         
         <!-- Spring Cloud Alibba Nacos 服务注册与发现 -->
@@ -92,6 +100,21 @@
     </dependencies>
     
     <build>
+    
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/application-${activatedProperties}.yml</include>
+                    <include>**/bootstrap-${activatedProperties}.yml</include>
+                    <include>**/bootstrap.yml</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <!-- filtering代表变量替换，会替换配置文件中的 @activatedProperties@ -->
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -113,11 +136,11 @@
                 <configuration>
                     <imageName>${project.artifactId}</imageName>
                     <imageTags>
-                        <imageTag>latest</imageTag>
+                        <imageTag>${revision}</imageTag>
                     </imageTags>
                     <!--指定Dockerfile路径-->
                     <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
-                    <dockerHost>http://172.31.0.207:2376</dockerHost>
+                    <dockerHost>http://localhost:2375</dockerHost>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>

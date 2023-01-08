@@ -1,6 +1,6 @@
 package com.tqz.alibaba.cloud.auth.component;
 
-import com.tqz.alibaba.cloud.auth.user.SecurityUser;
+import com.tqz.alibaba.cloud.common.user.SecurityUser;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -38,7 +38,7 @@ public class CustomUserAuthenticationConverter extends DefaultUserAuthentication
         return null;
     }
 
-    private Collection<? extends GrantedAuthority> getAuthorities(Map<String, ?> map) {
+    protected Collection<? extends GrantedAuthority> getAuthorities(Map<String, ?> map) {
         Object authorities = map.get(AUTHORITIES);
         if (authorities instanceof String) {
             return AuthorityUtils.commaSeparatedStringToAuthorityList((String) authorities);

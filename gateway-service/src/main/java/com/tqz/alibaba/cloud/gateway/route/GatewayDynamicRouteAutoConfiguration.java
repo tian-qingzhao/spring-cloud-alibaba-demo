@@ -1,8 +1,7 @@
 package com.tqz.alibaba.cloud.gateway.route;
 
-import com.tqz.alibaba.cloud.gateway.route.nacos.NacosConfigListenerRoute;
 import com.tqz.alibaba.cloud.gateway.route.nacos.GatewayNacosProperties;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import com.tqz.alibaba.cloud.gateway.route.nacos.NacosConfigListenerRoute;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.gateway.route.RouteDefinitionWriter;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +23,6 @@ public class GatewayDynamicRouteAutoConfiguration {
     }
     
     @Bean
-    @ConditionalOnProperty(prefix = GatewayNacosProperties.PREFIX, name = "data-id")
     public NacosConfigListenerRoute nacosConfigListenerRoute(GatewayNacosProperties gatewayNacosProperties,
             GatewayRouteRefresher gatewayRouteRefresher) {
         return new NacosConfigListenerRoute(gatewayNacosProperties, gatewayRouteRefresher);

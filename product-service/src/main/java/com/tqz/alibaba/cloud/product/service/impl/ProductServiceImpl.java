@@ -27,8 +27,9 @@ import java.math.BigDecimal;
 @Log4j2
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ProductServiceImpl implements ProductService {
+    
     private final ProductMapper productMapper;
-
+    
     @Override
     public ProductDTO selectByCode(String productCode) {
         ProductDTO productVO = new ProductDTO();
@@ -36,8 +37,8 @@ public class ProductServiceImpl implements ProductService {
         BeanUtils.copyProperties(product, productVO);
         return productVO;
     }
-
-
+    
+    
     @Override
     public ProductDTO updateProduct(ProductDTO productVO) {
         Product product = new Product();
@@ -45,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
         productMapper.updateById(product);
         return productVO;
     }
-
+    
     @Override
     public ProductDTO insertProduct(ProductDTO productVO) {
         Product product = new Product();
@@ -53,12 +54,12 @@ public class ProductServiceImpl implements ProductService {
         productMapper.insert(product);
         return productVO;
     }
-
+    
     @Override
     public int deleteProduct(String productCode) {
         return productMapper.deleteByCode(productCode);
     }
-
+    
     @Transactional(rollbackFor = RuntimeException.class)
     @Override
     public ResultData<BigDecimal> deduct(String productCode, Integer deductCount) {
@@ -73,7 +74,7 @@ public class ProductServiceImpl implements ProductService {
         }
         product.setCount(surplus);
         int result = productMapper.updateById(product);
-    
+        
         if (result > 0) {
             BigDecimal totalAmount = product.getPrice().multiply(new BigDecimal(deductCount));
             return ResultData.success("下单成功！", totalAmount);

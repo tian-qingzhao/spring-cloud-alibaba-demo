@@ -39,20 +39,22 @@ spring:
     username: root
     password: tqz123456789.
     driver-class-name: com.mysql.jdbc.Driver
+
+### Mybatis-Plus配置
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
 
-# oauth2.0
+### OAuth2.0
 security:
   oauth2:
     resource:
       id: product-service
       loadBalanced: true # 调用获取用户接口的时候是否需要使用负载均衡，true的话表示需要，并且 user-info-uri 需要使用服务名
-      user-info-uri: http://auth-service/user/current/get
+      #user-info-uri: http://auth-service/auth/user/current/get
 
 ### Seata分布式事务配置
 seata:
-  enabled: true # Seata开关，默认开启
+  enabled: false # Seata开关，默认开启
   application-id: ${spring.application.name}
   tx-service-group: product_service_group
   enable-auto-data-source-proxy: true
@@ -73,6 +75,23 @@ seata:
       userName: nacos
       password: nacos
       cluster: default
+
+### Dubbo 配置
+dubbo:
+  application:
+    name: ${spring.application.name}
+  scan:
+    base-packages: com.tqz.alibaba.cloud.product.dubbo
+  protocol:
+    name: dubbo
+    port: 21821
+  registry:
+    address: spring-cloud://localhost
+    check: false
+  consumer:
+    check: false
+  cloud:
+    subscribed-services: order-service
 
 ## swagger自定义配置属性
 tqz:

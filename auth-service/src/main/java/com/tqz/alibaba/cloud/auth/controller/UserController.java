@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
@@ -22,7 +23,7 @@ import java.security.Principal;
  */
 @Api(value = "用户接口")
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserController {
     
@@ -31,12 +32,15 @@ public class UserController {
     public final SysUserMapper userMapper;
     
     @GetMapping("getByName")
-    public SysUser getByName() {
-        return userMapper.selectByUserName("zhangjian");
+    public SysUser getByName(@RequestParam(defaultValue = "tqz") String username) {
+        return userMapper.selectByUserName(username);
     }
     
     /**
-     * 获取授权的用户信息
+     * 获取授权的用户信息。
+     *
+     * <p>用了透明令牌jwt token后资源服务器可以直接解析验证token，
+     * 资源管理器(account-service/product-service/order-service)不再需要调用认证服务器获取用户。
      *
      * @param principal 当前用户
      * @return 授权信息

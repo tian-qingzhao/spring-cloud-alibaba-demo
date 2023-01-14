@@ -25,7 +25,7 @@ spring:
         group: DEFAULT_GROUP
     sentinel:
       transport:
-        dashboard: localhost:8888
+        dashboard: localhost:8858
       datasource:
         flow:
           nacos:
@@ -57,6 +57,8 @@ spring:
           uri: lb://auth-service  # lb://** lb://为固定写法，表示开启负载均衡； ** 即服务在Nacos中注册的名字
           predicates: # Path=/auth/** 使用"Path Route Predicate Factory"，规则为/auth/** 的请求都还转发至微服务 auth-service 中。
             - Path=/auth/**
+          filters:
+            - StripPrefix=1 # 去掉URL路径中的部分前缀，这里配置的值为1，即去掉一个前缀
       #default-filters:
       #  - StripPrefix=1 # 去掉URL路径中的部分前缀，这里配置的值为1，即去掉一个前缀
 #          filters:

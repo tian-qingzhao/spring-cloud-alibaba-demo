@@ -17,6 +17,9 @@
         <module>gateway-service</module>
         <module>auth-service</module>
         <module>cloud-bom</module>
+        <module>cloud-dubbo</module>
+        <module>cloud-dubbo/account-dubbo-api</module>
+        <module>cloud-dubbo/product-dubbo-api</module>
     </modules>
     
     <properties>
@@ -33,6 +36,7 @@
     <dependencyManagement>
         <dependencies>
             
+            <!-- 项目BOM依赖 -->
             <dependency>
                 <groupId>com.tqz.alibaba.cloud</groupId>
                 <artifactId>cloud-bom</artifactId>

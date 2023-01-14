@@ -2,12 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/cloud-dubbo/account-dubbo-api/account-dubbo-api.iml" filepath="$PROJECT_DIR$/cloud-dubbo/account-dubbo-api/account-dubbo-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/account-service/account-service.iml" filepath="$PROJECT_DIR$/account-service/account-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/auth-service/auth-service.iml" filepath="$PROJECT_DIR$/auth-service/auth-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/cloud-bom/cloud-bom.iml" filepath="$PROJECT_DIR$/cloud-bom/cloud-bom.iml" />
       <module fileurl="file://$PROJECT_DIR$/cloud-common/cloud-common.iml" filepath="$PROJECT_DIR$/cloud-common/cloud-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cloud-dubbo/cloud-dubbo.iml" filepath="$PROJECT_DIR$/cloud-dubbo/cloud-dubbo.iml" />
       <module fileurl="file://$PROJECT_DIR$/gateway-service/gateway-service.iml" filepath="$PROJECT_DIR$/gateway-service/gateway-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/order-service/order-service.iml" filepath="$PROJECT_DIR$/order-service/order-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cloud-dubbo/product-dubbo-api/product-dubbo-api.iml" filepath="$PROJECT_DIR$/cloud-dubbo/product-dubbo-api/product-dubbo-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/product-service/product-service.iml" filepath="$PROJECT_DIR$/product-service/product-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-alibaba-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-alibaba-demo.iml" />
     </modules>

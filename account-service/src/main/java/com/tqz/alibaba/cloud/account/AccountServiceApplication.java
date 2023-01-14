@@ -4,6 +4,7 @@ import com.alibaba.csp.sentinel.adapter.spring.webmvc.AbstractSentinelIntercepto
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.BlockExceptionHandler;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.annotation.aspectj.SentinelResourceAspect;
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringApplicationRunListener;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -64,6 +65,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableScheduling
 //@EnableBinding({Sink.class})//接收消息
 @EnableSwagger2
+@EnableDubbo
 public class AccountServiceApplication {
     
     public static void main(String[] args) {

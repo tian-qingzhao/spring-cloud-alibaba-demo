@@ -1,6 +1,8 @@
 package com.tqz.alibaba.cloud.auth.config;
 
 import com.tqz.alibaba.cloud.auth.service.impl.UserDetailServiceImpl;
+import com.tqz.alibaba.cloud.auth.sms.SmsCodeSecurityConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,6 +28,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    
+    @Autowired
+    private SmsCodeSecurityConfig smsCodeSecurityConfig;
     
     @Override
     @Bean
@@ -53,7 +58,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
-        
     }
     
     /**
@@ -64,12 +68,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // 加入验证码登录配置类
+        http.apply(smsCodeSecurityConfig);
+        
         http.authorizeRequests().anyRequest().authenticated().and().httpBasic().and().cors().and().csrf().disable();
     }
     
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/error", "/static/**", "/v2/api-docs/**",
-                "/swagger-resources/**", "/webjars/**", "/favicon.ico");
+        web.ignoring().antMatchers("/error", "/static/**", "/v2/api-docs/**", "/swagger-resources/**", "/webjars/**",
+                "/favicon.ico", "/smsCode/getSmsCode");
     }
 }

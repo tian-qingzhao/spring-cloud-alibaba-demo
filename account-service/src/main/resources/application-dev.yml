@@ -19,7 +19,7 @@ spring:
       filter:
         enabled: true # sentinel在web环境下开启拦截器
       transport:
-        dashboard: localhost:8888
+        dashboard: localhost:8858
       #        client-ip: 192.168.0.108
       # 取消延迟加载
       eager: true
@@ -48,7 +48,7 @@ security:
     resource:
       id: account-service
       loadBalanced: true # 调用获取用户接口的时候是否需要使用负载均衡，true的话表示需要，并且 user-info-uri 需要使用服务名
-      user-info-uri: http://auth-service/user/current/get
+      #user-info-uri: http://auth-service/auth/user/current/get
 
 logging:
   level:
@@ -61,8 +61,9 @@ rocketmq:
   producer:
     group: cloud-group
 
+### Seata配置
 seata:
-  enabled: true
+  enabled: false # Seata开关，true开启，false关闭
   application-id: ${spring.application.name}
   tx-service-group: account_service_group
   enable-auto-data-source-proxy: true
@@ -70,7 +71,7 @@ seata:
     type: nacos
     nacos:
       serverAddr: localhost:8848
-      # namespace: public
+      # namespace: public # Nacos配置中心的命名空间如果使用 public 则不能指定，否则会拉取不到配置
       group: SEATA_GROUP
       userName: nacos
       password: nacos
@@ -84,6 +85,23 @@ seata:
       userName: nacos
       password: nacos
       cluster: default
+
+### Dubbo 配置
+dubbo:
+  application:
+    name: ${spring.application.name}
+  scan:
+    base-packages: com.tqz.alibaba.cloud.account.dubbo
+  protocol:
+    name: dubbo
+    port: 21811
+  registry:
+    address: spring-cloud://localhost
+    check: false
+  consumer:
+    check: false
+  cloud:
+    subscribed-services: order-service
 
 ## swagger自定义配置属性
 tqz:

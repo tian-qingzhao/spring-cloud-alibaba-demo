@@ -4,6 +4,8 @@ import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.tqz.alibaba.cloud.account.service.AccountService;
 import com.tqz.alibaba.cloud.common.base.ResultData;
 import com.tqz.alibaba.cloud.common.dto.AccountDTO;
+import com.tqz.alibaba.cloud.common.security.SecurityUser;
+import com.tqz.alibaba.cloud.common.security.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -64,8 +66,8 @@ public class AccountController {
     public ResultData<AccountDTO> getByCode(@RequestParam(required = false) String accountCode) {
         log.warn("get account detail,accountCode is :{}", accountCode);
         
-        //        SecurityUser securityUser = SecurityUtils.getUser();
-        //        log.info(securityUser);
+        SecurityUser securityUser = SecurityUtils.getUser();
+        log.info(securityUser);
         
         AccountDTO accountDTO = accountService.selectByCode(accountCode);
         return ResultData.success(accountDTO);

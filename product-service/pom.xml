@@ -31,7 +31,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
-    
+        
         <!-- Spring Cloud Bootstrap (如果使用配置中心，Spring Cloud3.0.0版本之前不需要该依赖，从3.0.0版本开始需要)-->
         <!--<dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -62,6 +62,13 @@
             <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
         </dependency>
         
+        <!-- Spring Cloud Dubbo RPC调用 （Spring Cloud Alibaba 从2021.0.1.0/2.2.8.RELEASE版本移除了该项目） -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-dubbo</artifactId>
+            <version>2.2.1.RELEASE</version>
+        </dependency>
+        
         <!-- Sentinel配置Nacos为持久化 -->
         <dependency>
             <groupId>com.alibaba.csp</groupId>
@@ -79,12 +86,19 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
-    
+        
+        <!-- Cloud Common 模块 -->
         <dependency>
             <groupId>com.tqz.alibaba.cloud</groupId>
             <artifactId>cloud-common</artifactId>
         </dependency>
         
+        <!-- Product Dubbo Api 模块依赖 -->
+        <dependency>
+            <groupId>com.tqz.alibaba.cloud</groupId>
+            <artifactId>product-dubbo-api</artifactId>
+        </dependency>
+    
     </dependencies>
     
     <build>
@@ -124,7 +138,7 @@
                 <configuration>
                     <imageName>${project.artifactId}</imageName>
                     <imageTags>
-                        <imageTag>${revision}</imageTag>
+                        <imageTag>latest</imageTag>
                     </imageTags>
                     <!--指定Dockerfile路径-->
                     <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>

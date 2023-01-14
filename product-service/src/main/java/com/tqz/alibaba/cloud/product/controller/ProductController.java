@@ -66,11 +66,15 @@ public class ProductController {
     }
     
     @GetMapping("/getByCode/{productCode}")
-    @SentinelResource(value = "/product/getByCode", blockHandler = "blockHandler", fallback = "fallbackHandler")
+    @SentinelResource(value = "/product/getByCode", blockHandler = "blockHandler" )
     @ApiOperation(value = "根据产品编码查找对应的产品")
     @ApiImplicitParam(name = "productCode", value = "产品编码", required = true, paramType = "path")
     public ResultData<ProductDTO> getByCode(@PathVariable String productCode) {
         log.info("get product detail,productCode is :{}", productCode);
+        if ("error".equals(productCode)) {
+            throw new RuntimeException("商品服务查询接口故意抛出异常");
+        }
+        
         ProductDTO productDTO = productService.selectByCode(productCode);
         return ResultData.success(productDTO);
     }

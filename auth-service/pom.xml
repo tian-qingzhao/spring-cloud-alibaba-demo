@@ -86,7 +86,7 @@
                 <configuration>
                     <imageName>${project.artifactId}</imageName>
                     <imageTags>
-                        <imageTag>${revision}</imageTag>
+                        <imageTag>latest</imageTag>
                     </imageTags>
                     <!--指定Dockerfile路径-->
                     <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>

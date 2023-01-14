@@ -1,5 +1,6 @@
 package com.tqz.alibaba.cloud.product.config;//package com.tqz.product.config;
 
+import com.tqz.alibaba.cloud.common.base.Constant;
 import com.tqz.alibaba.cloud.common.handler.CustomAccessDeniedHandler;
 import com.tqz.alibaba.cloud.common.handler.CustomAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Value;
@@ -50,7 +51,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Bean
     public JwtAccessTokenConverter jwtTokenEnhancer() {
         JwtAccessTokenConverter jwtTokenEnhancer = new JwtAccessTokenConverter();
-        jwtTokenEnhancer.setSigningKey("javadaily");
+        jwtTokenEnhancer.setSigningKey(Constant.SIGNING_KEY);
         return jwtTokenEnhancer;
     }
 }

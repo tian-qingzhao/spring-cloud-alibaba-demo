@@ -1,13 +1,14 @@
 package com.tqz.alibaba.cloud.order.service.impl;
 
+import com.tqz.alibaba.cloud.account.api.AccountDubboApi;
 import com.tqz.alibaba.cloud.common.base.Constant;
 import com.tqz.alibaba.cloud.common.base.ResultData;
 import com.tqz.alibaba.cloud.common.base.ReturnCode;
 import com.tqz.alibaba.cloud.common.dto.AccountDTO;
-import com.tqz.alibaba.cloud.common.dto.ProductDTO;
-import com.tqz.alibaba.cloud.common.exception.ServiceException;
-import com.tqz.alibaba.cloud.common.dto.UserAddMoneyDTO;
 import com.tqz.alibaba.cloud.common.dto.OrderDTO;
+import com.tqz.alibaba.cloud.common.dto.ProductDTO;
+import com.tqz.alibaba.cloud.common.dto.UserAddMoneyDTO;
+import com.tqz.alibaba.cloud.common.exception.ServiceException;
 import com.tqz.alibaba.cloud.order.feign.AccountFeignClient;
 import com.tqz.alibaba.cloud.order.feign.ProductFeignClient;
 import com.tqz.alibaba.cloud.order.mapper.OrderMapper;
@@ -16,10 +17,12 @@ import com.tqz.alibaba.cloud.order.po.Order;
 import com.tqz.alibaba.cloud.order.po.RocketmqTransactionLog;
 import com.tqz.alibaba.cloud.order.service.OrderService;
 import com.tqz.alibaba.cloud.order.vo.OrderVO;
+import com.tqz.alibaba.cloud.product.api.ProductDubboApi;
 import io.seata.core.context.RootContext;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.apache.dubbo.config.annotation.Reference;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.apache.rocketmq.spring.support.RocketMQHeaders;
 import org.springframework.aop.framework.AopContext;
@@ -56,6 +59,12 @@ public class OrderServiceImpl implements OrderService {
     private final AccountFeignClient accountFeignClient;
     
     private final ProductFeignClient productFeignClient;
+    
+    @Reference(interfaceName = "com.tqz.alibaba.cloud.account.api.AccountDubboApi", generic = true)
+    private AccountDubboApi accountDubboApi;
+    
+    @Reference(interfaceName = "com.tqz.alibaba.cloud.product.api.ProductDubboApi", generic = true)
+    private ProductDubboApi productDubboApi;
     
     private static final String ERROR = "error";
     
@@ -110,13 +119,12 @@ public class OrderServiceImpl implements OrderService {
         if (order != null && Constant.VALID_STATUS.equals(order.getStatus())) {
             String transactionId = UUID.randomUUID().toString();
             // 如果可以删除订单则发送消息给rocketmq，让用户中心消费消息
-            
             rocketMQTemplate.sendMessageInTransaction("add-amount", MessageBuilder.withPayload(
                             UserAddMoneyDTO.builder().userCode(order.getAccountCode()).amount(order.getAmount()).build())
                     .setHeader(RocketMQHeaders.TRANSACTION_ID, transactionId).setHeader("order_id", order.getId())
                     .build(), order);
             
-            //            changeStatus(order.getId(), CloudConstant.INVALID_STATUS);
+            changeStatus(order.getId(), Constant.INVALID_STATUS);
         }
     }
     
@@ -129,21 +137,38 @@ public class OrderServiceImpl implements OrderService {
     }
     
     @Override
+    public ResultData<AccountDTO> selectByAccountCode(String accountCode) {
+        log.info("order-service使用dubbo调用account-service，请求参数accountCode：{}", accountCode);
+        
+        // dubbo调用,线程数：1000，Ramp-Up：10，平均时长：23ms，最小时长：16ms，最大时长：188ms，吞吐量：96.4/s
+        return accountDubboApi.getByCode(accountCode);
+        
+        // feign调用,线程数：1000，Ramp-Up：10，平均时长：714ms，最小时长：22ms，最大时长：3060ms，吞吐量：87.7/s
+        // return accountFeignClient.getByCode(accountCode);
+    }
+    
+    @Override
     public ResultData<OrderVO> selectByAccountCodeAndProductCode(String accountCode, String productCode) {
-        OrderVO orderVO = new OrderVO();
+        log.info("order服务使用dubbo远程调用account服务和product服务");
         
         ResultData<AccountDTO> accountResult = accountFeignClient.getByCode(accountCode);
-        Optional<AccountDTO> accountDTO = Optional.ofNullable(accountResult.getData());
-        AccountDTO account = accountDTO.orElse(new AccountDTO());
-        log.info("查询账户信息成功：{}", account);
         
         ResultData<ProductDTO> productResult = productFeignClient.getByCode(productCode);
-        Optional<ProductDTO> productDTO = Optional.ofNullable(productResult.getData());
-        ProductDTO product = productDTO.orElse(new ProductDTO());
-        log.info("查询产品信息成功：{}", product);
         
-        orderVO.setAccountDTO(account);
-        orderVO.setProductDTO(product);
+        OrderVO orderVO = setOrderVO(accountResult, productResult);
+        
+        return ResultData.success(orderVO);
+    }
+    
+    @Override
+    public ResultData<OrderVO> selectByAccountCodeAndProductCodeWithDubbo(String accountCode, String productCode) {
+        log.info("order服务使用feign远程调用account服务和product服务");
+        
+        ResultData<AccountDTO> accountResult = accountDubboApi.getByCode(accountCode);
+        
+        ResultData<ProductDTO> productResult = productDubboApi.getByCode(productCode);
+        
+        OrderVO orderVO = setOrderVO(accountResult, productResult);
         
         return ResultData.success(orderVO);
     }
@@ -151,5 +176,22 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void saveOrder(Order order) {
         orderMapper.insert(order);
+    }
+    
+    private OrderVO setOrderVO(ResultData<AccountDTO> accountResult, ResultData<ProductDTO> productResult) {
+        OrderVO orderVO = new OrderVO();
+        
+        Optional<AccountDTO> accountDTO = Optional.ofNullable(accountResult.getData());
+        AccountDTO account = accountDTO.orElse(new AccountDTO());
+        log.info("查询账户信息成功：{}", account);
+        
+        Optional<ProductDTO> productDTO = Optional.ofNullable(productResult.getData());
+        ProductDTO product = productDTO.orElse(new ProductDTO());
+        log.info("查询产品信息成功：{}", product);
+        
+        orderVO.setAccountDTO(account);
+        orderVO.setProductDTO(product);
+        
+        return orderVO;
     }
 }

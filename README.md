@@ -87,7 +87,7 @@ docker run -d --name sentinel-dashboard -p 8858:8858 bladex/sentinel-dashboard:1
 
 #### Docker构建每个模块的微服务
 
-1.首先在 cloud-bom 和 cloud-common 两个模块执行 `mvn clean install` 命令，否则打包不成功。
+1.首先在 cloud-bom、cloud-common、account-dubbo-api、product-dubbo-api 四个模块执行 `mvn clean install` 命令，否则打包不成功。
 2.进入到每个微服务模块，执行该命令构建Docker镜像： `mvn clean install -P docker docker:build -DskipTests`。 通过 `-P docker`
 参数指定父pom里面定义的profile对应id。
 3.根据Docker镜像创建容器，例如account-service微服务：`docker run -d --name account-service -p 8010:8010 account-service`

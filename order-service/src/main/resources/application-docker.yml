@@ -40,16 +40,17 @@ spring:
     password: tqz123456789.
     driver-class-name: com.mysql.jdbc.Driver
 
+### Mybatis-Plus配置
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
 
-# oauth2.0
+### OAuth2.0
 security:
   oauth2:
     resource:
       id: order-service
       loadBalanced: true # 调用获取用户接口的时候是否需要使用负载均衡，true的话表示需要，并且 user-info-uri 需要使用服务名
-      user-info-uri: http://auth-service/user/current/get
+      #user-info-uri: http://auth-service/auth/user/current/get
 
 ### swagger自定义配置属性
 tqz:
@@ -58,6 +59,7 @@ tqz:
     title: order-service在线接口平台
     description: order-service微服务相关接口
 
+### Feign配置
 feign:
   client:
     config:
@@ -67,7 +69,7 @@ feign:
   sentinel:
     enabled: true
 
-# within rocketmq
+### RocketMQ配置
 rocketmq:
   name-server: 81.70.157.38:9876
   producer:
@@ -79,7 +81,7 @@ logging:
     com.alibaba.nacos: error
     org.apache.rocketmq.remoting.common: error
 
-
+### Seata配置
 seata:
   enabled: true # Seata开关，默认开启
   application-id: ${spring.application.name}
@@ -102,3 +104,12 @@ seata:
       userName: nacos
       password: nacos
       cluster: default
+
+### Dubbo配置
+dubbo:
+  registry:
+    address: spring-cloud://localhost
+  cloud:
+    subscribed-services: account-service, product-service
+  consumer:
+    check: false

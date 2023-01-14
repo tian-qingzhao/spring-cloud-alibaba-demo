@@ -6,6 +6,7 @@ import com.alibaba.csp.sentinel.slots.block.authority.AuthorityException;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
 import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author tianqingzhao
  * @since 2022/8/11 10:11
  */
+@Slf4j
 @Component
 public class SentinelBlockExceptionHandler implements BlockExceptionHandler {
     
@@ -34,8 +36,10 @@ public class SentinelBlockExceptionHandler implements BlockExceptionHandler {
             message = "请求被降级了";
         } else if (e instanceof AuthorityException) {
             message = "没有权限访问";
-            code = 401;
+            code = 403;
         }
+        
+        log.info("接口 {} {}", request.getRequestURI(), message);
         
         response.setContentType("application/json;charset=utf-8");
         response.setStatus(code);

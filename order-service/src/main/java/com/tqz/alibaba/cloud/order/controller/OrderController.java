@@ -1,6 +1,7 @@
 package com.tqz.alibaba.cloud.order.controller;
 
 import com.tqz.alibaba.cloud.common.base.ResultData;
+import com.tqz.alibaba.cloud.common.dto.AccountDTO;
 import com.tqz.alibaba.cloud.common.dto.OrderDTO;
 import com.tqz.alibaba.cloud.order.service.OrderService;
 import com.tqz.alibaba.cloud.order.vo.OrderVO;
@@ -29,11 +30,23 @@ public class OrderController {
     
     private final OrderService orderService;
     
+    @GetMapping("selectByAccountCode")
+    public ResultData<AccountDTO> selectByAccountCode(@RequestParam(defaultValue = "tian") String accountCode) {
+        return orderService.selectByAccountCode(accountCode);
+    }
+    
     @GetMapping("selectByAccountCodeAndProductCode")
     public ResultData<OrderVO> selectByAccountCodeAndProductCode(
             @RequestParam(defaultValue = "tian") String accountCode,
             @RequestParam(defaultValue = "001") String productCode) {
         return orderService.selectByAccountCodeAndProductCode(accountCode, productCode);
+    }
+    
+    @GetMapping("selectByAccountCodeAndProductCodeWithDubbo")
+    public ResultData<OrderVO> selectByAccountCodeAndProductCodeWithDubbo(
+            @RequestParam(defaultValue = "tian") String accountCode,
+            @RequestParam(defaultValue = "001") String productCode) {
+        return orderService.selectByAccountCodeAndProductCodeWithDubbo(accountCode, productCode);
     }
     
     @PostMapping("/create")

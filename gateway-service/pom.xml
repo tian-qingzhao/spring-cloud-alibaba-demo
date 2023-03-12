@@ -49,11 +49,11 @@
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
     
-        <!-- Spring Cloud Bootstrap (如果使用配置中心，Spring Cloud3.0.0版本之前不需要该依赖，从3.0.0版本开始需要)-->
-        <!--<dependency>
+        <!-- Spring Cloud Bootstrap (如果使用配置中心，Spring Cloud3.0.0版本之前不需要该依赖，从3.0.0-M4版本开始需要)-->
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
-        </dependency>-->
+        </dependency>
     
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -69,13 +69,18 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
-        
-        
+
         <!-- Spring Cloud Gateway原生限流，使用redis，基于令牌桶规则 -->
-     <!--   <dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
-        </dependency>-->
+        </dependency>
+    
+        <!-- Spring Boot MongoDB ，由 Spring Cloud Gateway 是基于 Reactive ，所以这里选择mongodb reactive -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
+        </dependency>
         
         <!-- Spring Cloud Gateway使用Sentinel作为限流 -->
         <dependency>
@@ -105,6 +110,11 @@
         <dependency>
             <groupId>com.tqz.alibaba.cloud</groupId>
             <artifactId>cloud-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
         </dependency>
     
     </dependencies>

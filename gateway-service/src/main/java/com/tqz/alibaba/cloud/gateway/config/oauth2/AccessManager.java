@@ -4,6 +4,7 @@ import com.alibaba.nacos.common.utils.ConcurrentHashSet;
 import com.tqz.alibaba.cloud.common.base.Constant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.ReactiveAuthorizationManager;
 import org.springframework.security.core.Authentication;
@@ -28,35 +29,42 @@ import java.util.Set;
 @Component
 @Slf4j
 public class AccessManager implements ReactiveAuthorizationManager<AuthorizationContext>, InitializingBean {
-    
+
     private final Set<String> permitAll = new ConcurrentHashSet<>();
-    
+
     private static final AntPathMatcher ANT_PATH_MATCHER = new AntPathMatcher();
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         init();
     }
-    
+
     /**
      * 实现权限验证判断
      */
     @Override
     public Mono<AuthorizationDecision> check(Mono<Authentication> authenticationMono,
-            AuthorizationContext authorizationContext) {
+                                             AuthorizationContext authorizationContext) {
         ServerWebExchange exchange = authorizationContext.getExchange();
+        ServerHttpRequest request = exchange.getRequest();
+
         // 请求资源
-        String requestPath = exchange.getRequest().getURI().getPath();
+        String requestPath = request.getURI().getPath();
+
         // 是否直接放行
         if (permitAll(requestPath)) {
             log.info("接口 {} 不需要校验权限，直接放行", requestPath);
             return Mono.just(new AuthorizationDecision(true));
         }
-        
-        return authenticationMono.map(auth -> new AuthorizationDecision(checkAuthorities(auth, requestPath)))
+
+        // 拼接请求方法，解决Rest风格接口的权限问题
+        String requestMethodPath =
+                Constant.BRACKETS_PREFIX + request.getMethod() + Constant.BRACKETS_SUFFIX + requestPath;
+
+        return authenticationMono.map(auth -> new AuthorizationDecision(checkAuthorities(auth, requestMethodPath)))
                 .defaultIfEmpty(new AuthorizationDecision(false));
     }
-    
+
     /**
      * 校验是否属于静态资源
      *
@@ -66,7 +74,7 @@ public class AccessManager implements ReactiveAuthorizationManager<Authorization
     private boolean permitAll(String requestPath) {
         return permitAll.stream().anyMatch(r -> ANT_PATH_MATCHER.match(r, requestPath));
     }
-    
+
     /**
      * 权限校验
      *
@@ -79,7 +87,7 @@ public class AccessManager implements ReactiveAuthorizationManager<Authorization
             OAuth2Authentication athentication = (OAuth2Authentication) auth;
             String clientId = athentication.getOAuth2Request().getClientId();
             log.info("clientId is {}", clientId);
-            
+
             Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
             boolean result = authorities.stream().map(GrantedAuthority::getAuthority)
                     .filter(item -> !item.startsWith(Constant.ROLE_PREFIX))
@@ -87,10 +95,10 @@ public class AccessManager implements ReactiveAuthorizationManager<Authorization
             log.info("判断接口 {} 权限结果：{}", requestPath, result);
             return result;
         }
-        
+
         return false;
     }
-    
+
     /**
      * 初始化静态资源以及不需要拦截的请求
      */
@@ -106,5 +114,6 @@ public class AccessManager implements ReactiveAuthorizationManager<Authorization
         permitAll.add("/**/oauth/**");
         permitAll.add("/**/current/get");
         permitAll.add("/**/smsCode/getSmsCode");
+        permitAll.add("/**/token/**");
     }
 }

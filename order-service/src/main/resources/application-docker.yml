@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: order-service
+  main:
+    allow-circular-references: true # springboot从2.6禁止循环依赖
   security:
     user:
       name: admin
@@ -71,9 +73,11 @@ feign:
 
 ### RocketMQ配置
 rocketmq:
-  name-server: 81.70.157.38:9876
+  name-server: localhost:9876
   producer:
     group: cloud-group
+    sendMessageTimeout: 15000 # 默认3000毫秒，第一次发送可能会报 sendDefaultImpl call timeout
+  addAmountTopicName: add-amount-topic # 该属性官方没有，为自定义的
 
 # 指定日志级别
 logging:

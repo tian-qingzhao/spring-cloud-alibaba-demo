@@ -41,6 +41,8 @@ public class CustomErrorWebExceptionHandler implements ErrorWebExceptionHandler 
     
     @Override
     public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
+        log.error("网关拦截到请求url：{} 异常", exchange.getRequest().getURI().getPath());
+        
         ServerHttpResponse response = exchange.getResponse();
         if (response.isCommitted()) {
             return Mono.error(ex);

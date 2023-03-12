@@ -28,21 +28,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    
+
     @Autowired
     private SmsCodeSecurityConfig smsCodeSecurityConfig;
-    
+
     @Override
     @Bean
     public UserDetailsService userDetailsService() {
         return new UserDetailServiceImpl();
     }
-    
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
+
     /**
      * 认证管理
      *
@@ -54,12 +54,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-    
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
     }
-    
+
     /**
      * http安全配置
      *
@@ -70,13 +70,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // 加入验证码登录配置类
         http.apply(smsCodeSecurityConfig);
-        
-        http.authorizeRequests().anyRequest().authenticated().and().httpBasic().and().cors().and().csrf().disable();
+
+        http.authorizeRequests().antMatchers("/token/**", "/sms/**").permitAll()
+                .anyRequest().authenticated()
+                .and().httpBasic()
+                .and().cors()
+                .and().csrf()
+                .disable();
     }
-    
+
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/error", "/static/**", "/v2/api-docs/**", "/swagger-resources/**", "/webjars/**",
-                "/favicon.ico", "/smsCode/getSmsCode");
+        web.ignoring().antMatchers("/error", "/static/**", "/v2/api-docs/**",
+                "/swagger-resources/**", "/webjars/**", "/favicon.ico", "/smsCode/getSmsCode", "/token/**");
     }
 }

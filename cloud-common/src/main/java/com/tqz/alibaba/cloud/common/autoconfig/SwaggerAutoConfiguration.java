@@ -1,6 +1,7 @@
 package com.tqz.alibaba.cloud.common.autoconfig;
 
 import com.tqz.alibaba.cloud.common.properties.SwaggerProperties;
+import com.tqz.alibaba.cloud.common.swagger.SwaggerHandlerMappingsBeanPostProcessor;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -62,6 +63,11 @@ public class SwaggerAutoConfiguration {
                 //整合oauth2
                 .securitySchemes(Collections.singletonList(apiKey()))
                 .securityContexts(Collections.singletonList(securityContext()));
+    }
+
+    @Bean
+    public SwaggerHandlerMappingsBeanPostProcessor swaggerConfig() {
+        return new SwaggerHandlerMappingsBeanPostProcessor();
     }
 
     /**

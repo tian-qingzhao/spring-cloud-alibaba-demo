@@ -58,7 +58,7 @@ spring:
           predicates: # Path=/auth/** 使用"Path Route Predicate Factory"，规则为/auth/** 的请求都还转发至微服务 auth-service 中。
             - Path=/auth/**
           filters:
-            - StripPrefix=1 # 去掉URL路径中的部分前缀，这里配置的值为1，即去掉一个前缀
+            - StripPrefix=1 # 去掉URL路径中的部分前缀，这里配置的值为1，即去掉一个前缀，只针对auth-service生效
       #default-filters:
       #  - StripPrefix=1 # 去掉URL路径中的部分前缀，这里配置的值为1，即去掉一个前缀
 #          filters:
@@ -73,6 +73,10 @@ spring:
 #    password: 123456
 #    database: 0
 #    port: 6379
+  data:
+    mongodb:
+      host: localhost
+      database: spring-cloud-alibaba-demo
 
 ### Gateway通过配置中心动态获取路由
 gateway:

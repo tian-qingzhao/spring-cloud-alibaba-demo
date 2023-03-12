@@ -6,9 +6,11 @@ import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.fastjson.JSON;
 import com.tqz.alibaba.cloud.common.base.ResultData;
 import com.tqz.alibaba.cloud.common.base.ReturnCode;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.commons.util.InetUtils;
 import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
@@ -16,6 +18,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebExceptionHandler;
 import reactor.core.publisher.Mono;
+
 
 /**
  * <p>网关自定义限流返回。
@@ -25,6 +28,8 @@ import reactor.core.publisher.Mono;
  * @author tianqingzhao
  * @since 2021/3/3 17:01
  */
+@Slf4j
+@Order(Ordered.HIGHEST_PRECEDENCE)
 @Component
 public class CustomGatewayBlockExceptionHandler implements WebExceptionHandler, Ordered {
     
@@ -42,6 +47,7 @@ public class CustomGatewayBlockExceptionHandler implements WebExceptionHandler, 
     }
     
     private Mono<ServerResponse> handleBlockedRequest(ServerWebExchange exchange, Throwable throwable) {
+        log.error("网关拦截到请求url：{} 被限流了", exchange.getRequest().getURI().getPath());
         return GatewayCallbackManager.getBlockHandler().handleRequest(exchange, throwable);
     }
     

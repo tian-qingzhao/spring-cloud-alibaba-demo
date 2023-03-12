@@ -28,5 +28,5 @@ public interface OrderMapper extends BaseMapper<Order> {
      * @param id     订单主键id
      * @param status 状态
      */
-    void changeStatus(@Param("id") Integer id, @Param("status") String status);
+    int changeStatus(@Param("id") Integer id, @Param("status") String status);
 }

@@ -19,7 +19,9 @@
         <alibaba.fastjson.version>1.2.60</alibaba.fastjson.version>
         <cloud-common.version>1.0.0</cloud-common.version>
         <rocketmq.version>2.1.0</rocketmq.version>
+        <oauth2.version>2.2.4.RELEASE</oauth2.version>
         <junit.version>4.13.2</junit.version>
+        <nimbusds.version>9.13</nimbusds.version>
     </properties>
     
     <dependencyManagement>
@@ -100,12 +102,25 @@
                 <artifactId>rocketmq-spring-boot-starter</artifactId>
                 <version>${rocketmq.version}</version>
             </dependency>
+
+            <!-- Spring Cloud OAuth2 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-oauth2</artifactId>
+                <version>${oauth2.version}</version>
+            </dependency>
             
             <!-- Junit 单元测试 -->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.nimbusds</groupId>
+                <artifactId>nimbus-jose-jwt</artifactId>
+                <version>${nimbusds.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

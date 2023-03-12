@@ -67,7 +67,7 @@ public class ResultData<T> {
     
     public static <T> ResultData<T> fail(String message) {
         ResultData<T> resultData = new ResultData<>();
-        resultData.setCode(ReturnCode.RC999.getCode());
+        resultData.setCode(ReturnCode.RC500.getCode());
         resultData.setMessage(message);
         return resultData;
     }
@@ -81,8 +81,8 @@ public class ResultData<T> {
     
     public static <T> ResultData<T> fail() {
         ResultData<T> resultData = new ResultData<>();
-        resultData.setCode(ReturnCode.RC999.getCode());
-        resultData.setMessage(ReturnCode.RC999.getMessage());
+        resultData.setCode(ReturnCode.RC500.getCode());
+        resultData.setMessage(ReturnCode.RC500.getMessage());
         return resultData;
     }
 }

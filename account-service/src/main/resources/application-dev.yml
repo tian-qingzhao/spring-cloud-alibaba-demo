@@ -3,6 +3,10 @@ server:
 spring:
   main:
     allow-bean-definition-overriding: true
+    allow-circular-references: true # springboot从2.6禁止循环依赖
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # springboot2.6默认使用的PATH_PATTERN_PARSER
   security:
     user:
       name: admin
@@ -14,6 +18,8 @@ spring:
         username: nacos
         password: nacos
         namespace: public
+        metadata:
+          version: dev # 元数据测试灰度发布，在网关的请求头添加version等于dev会路由到添加了该元数据的实例上面
 
     sentinel:
       filter:
@@ -33,6 +39,11 @@ spring:
             rule-type: flow
             username: nacos
             password: nacos
+    stream:
+      rocketmq:
+        binder:
+          group: cloud-group
+          name-server: localhost:9876
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://localhost:3306/cloud-alibaba?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
@@ -57,9 +68,10 @@ logging:
 
 ### RocketMQ配置
 rocketmq:
-  name-server: 172.31.0.44:9876
+  name-server: localhost:9876
   producer:
     group: cloud-group
+  addAmountTopicName: add-amount-topic # 该属性官方没有，为自定义的
 
 ### Seata配置
 seata:

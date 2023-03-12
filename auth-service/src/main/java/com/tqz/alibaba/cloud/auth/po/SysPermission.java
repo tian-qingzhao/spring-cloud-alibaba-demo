@@ -25,4 +25,6 @@ public class SysPermission {
     private String permission;
     
     private String url;
+    
+    private String method;
 }

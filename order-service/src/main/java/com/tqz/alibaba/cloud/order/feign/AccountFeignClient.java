@@ -5,10 +5,7 @@ import com.tqz.alibaba.cloud.common.base.ResultData;
 import com.tqz.alibaba.cloud.common.dto.AccountDTO;
 import com.tqz.alibaba.cloud.order.feign.fallback.AccountFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 
@@ -38,4 +35,6 @@ public interface AccountFeignClient {
     @PostMapping("reduce")
     ResultData<String> reduce(@RequestParam("accountCode") String accountCode, @RequestParam("amount") BigDecimal amount);
 
+    @RequestMapping("/pv/account/getSecretValue")
+    ResultData<String> getSecretValue();
 }

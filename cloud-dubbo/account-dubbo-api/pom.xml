@@ -5,7 +5,7 @@
     <parent>
         <artifactId>spring-cloud-alibaba-demo</artifactId>
         <groupId>com.tqz.alibaba.cloud</groupId>
-        <version>1.0.0</version>
+        <version>${revision}</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>

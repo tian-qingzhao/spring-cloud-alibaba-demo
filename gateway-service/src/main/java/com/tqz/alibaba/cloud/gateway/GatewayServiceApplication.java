@@ -1,20 +1,10 @@
 package com.tqz.alibaba.cloud.gateway;
 
+import com.tqz.alibaba.cloud.gateway.config.loadbalancer.VersionServiceInstanceListSupplierConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.gateway.handler.predicate.AfterRoutePredicateFactory;
-import org.springframework.cloud.gateway.handler.predicate.BeforeRoutePredicateFactory;
-import org.springframework.cloud.gateway.handler.predicate.BetweenRoutePredicateFactory;
-import org.springframework.cloud.gateway.handler.predicate.CloudFoundryRouteServiceRoutePredicateFactory;
-import org.springframework.cloud.gateway.handler.predicate.CookieRoutePredicateFactory;
-import org.springframework.cloud.gateway.handler.predicate.HeaderRoutePredicateFactory;
-import org.springframework.cloud.gateway.handler.predicate.HostRoutePredicateFactory;
-import org.springframework.cloud.gateway.handler.predicate.MethodRoutePredicateFactory;
-import org.springframework.cloud.gateway.handler.predicate.PathRoutePredicateFactory;
-import org.springframework.cloud.gateway.handler.predicate.QueryRoutePredicateFactory;
-import org.springframework.cloud.gateway.handler.predicate.ReadBodyRoutePredicateFactory;
-import org.springframework.cloud.gateway.handler.predicate.RemoteAddrRoutePredicateFactory;
-import org.springframework.cloud.gateway.handler.predicate.WeightRoutePredicateFactory;
+import org.springframework.cloud.gateway.handler.predicate.*;
+import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClients;
 
 /**
  * <p>
@@ -83,6 +73,8 @@ import org.springframework.cloud.gateway.handler.predicate.WeightRoutePredicateF
  * @see WeightRoutePredicateFactory
  */
 @SpringBootApplication
+//@LoadBalancerClient(value = "account-service", configuration = VersionLoadBalancerConfiguration.class) // 指定服务
+@LoadBalancerClients(defaultConfiguration = VersionServiceInstanceListSupplierConfiguration.class) // 所有服务
 public class GatewayServiceApplication {
 
     public static void main(String[] args) {

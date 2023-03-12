@@ -57,9 +57,12 @@ public class UserDetailServiceImpl implements UserDetailsService {
             List<Integer> roleIds = roleList.stream().map(SysRole::getId).collect(Collectors.toList());
             // 获取所有角色的权限
             List<SysPermission> permissionList = sysPermissionService.listPermissionsByRoles(roleIds);
-    
+            
             // 1.网关做权限的校验，这里返回用户所拥有的url，网关处根据使用 `AccessManager` 类对请求的url判断是否有权限访问
-            sysUser.setPermissions(permissionList.stream().map(SysPermission::getUrl).collect(Collectors.toList()));
+            // 拼接请求方式，用于解决RestApi的权限问题
+            sysUser.setPermissions(permissionList.stream()
+                    .map(sysPermission -> Constant.BRACKETS_PREFIX + sysPermission.getMethod()
+                            + Constant.BRACKETS_SUFFIX + sysPermission.getUrl()).collect(Collectors.toList()));
             
             // 2.业务微服务自定义权限校验，需要把数据库的 `permission` 字段给返回，网关的 `AccessManager` 类全部要放行
             // 并且在每个微服务提供的接口处添加 Spring Security 注解 @PreAuthorize("hasPrivilege('queryAccount')") ，

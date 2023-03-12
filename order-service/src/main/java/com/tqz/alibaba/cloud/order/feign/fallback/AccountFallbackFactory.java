@@ -3,8 +3,8 @@ package com.tqz.alibaba.cloud.order.feign.fallback;
 import com.tqz.alibaba.cloud.common.base.ResultData;
 import com.tqz.alibaba.cloud.common.dto.AccountDTO;
 import com.tqz.alibaba.cloud.order.feign.AccountFeignClient;
-import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -24,30 +24,35 @@ public class AccountFallbackFactory implements FallbackFactory<AccountFeignClien
     @Override
     public AccountFeignClient create(Throwable cause) {
         return new AccountFeignClient() {
-            
+
             @Override
             public ResultData<String> insert(AccountDTO accountDTO) {
-                return new ResultData<String>().fail(cause.getMessage());
+                return ResultData.fail(cause.getMessage());
             }
 
             @Override
             public ResultData<String> delete(String accountCode) {
-                return new ResultData<String>().fail(cause.getMessage());
+                return ResultData.fail(cause.getMessage());
             }
 
             @Override
             public ResultData<String> update(AccountDTO accountDTO) {
-                return new ResultData<String>().fail(cause.getMessage());
+                return ResultData.fail(cause.getMessage());
             }
 
             @Override
             public ResultData<AccountDTO> getByCode(String accountCode) {
-                return new ResultData<String>().fail(cause.getMessage());
+                return ResultData.fail(cause.getMessage());
             }
 
             @Override
             public ResultData<String> reduce(String accountCode, BigDecimal amount) {
-                return new ResultData<String>().fail(cause.getMessage());
+                return ResultData.fail(cause.getMessage());
+            }
+
+            @Override
+            public ResultData<String> getSecretValue() {
+                return ResultData.fail(cause.getMessage());
             }
         };
     }

@@ -1,5 +1,8 @@
 package com.tqz.alibaba.cloud.auth.config;
 
+import com.tqz.alibaba.cloud.auth.error.CustomAuthenticationEntryPoint;
+import com.tqz.alibaba.cloud.auth.error.CustomClientCredentialsTokenEndpointFilter;
+import com.tqz.alibaba.cloud.auth.error.CustomWebResponseExceptionTranslator;
 import com.tqz.alibaba.cloud.auth.security.CustomJwtAccessTokenConverter;
 import com.tqz.alibaba.cloud.auth.service.impl.UserDetailServiceImpl;
 import com.tqz.alibaba.cloud.common.base.Constant;
@@ -9,8 +12,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -103,11 +104,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     /**
      * 注入密码加密实现器
      */
-    @Bean
+    /*@Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-    
+    }*/
+
     /**
      * 认证服务器Endpoints配置
      */
@@ -123,6 +124,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         // 在 SmsCodeTokenGranterConfig 中已经创建了 AuthorizationServerTokenServices，
         // 所以我们可以将上面的 tokenServices 功能删除
         endpoints.tokenGranter(tokenGranter);
+        
+        endpoints.exceptionTranslator(new CustomWebResponseExceptionTranslator());
     }
     
     /**
@@ -130,7 +133,15 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.allowFormAuthenticationForClients() // 如果使用表单认证则需要加上
+        // 自定义认证配置的过滤器
+        CustomClientCredentialsTokenEndpointFilter endpointFilter = new CustomClientCredentialsTokenEndpointFilter(
+                security);
+        endpointFilter.afterPropertiesSet();
+        endpointFilter.setAuthenticationEntryPoint(new CustomAuthenticationEntryPoint());
+        security.addTokenEndpointAuthenticationFilter(endpointFilter);
+        
+        security
+                //.allowFormAuthenticationForClients() // 如果使用表单认证则需要加上 // 需要删除，否则上面自定义的过滤器不生效
                 .tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
     }
     

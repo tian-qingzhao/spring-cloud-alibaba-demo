@@ -5,7 +5,7 @@
     <parent>
         <artifactId>spring-cloud-alibaba-demo</artifactId>
         <groupId>com.tqz.alibaba.cloud</groupId>
-        <version>${revision}</version>
+        <version>1.0.0</version> <!-- 这里不能使用revision，否则会打包不成功-->
         <relativePath>../pom.xml</relativePath>
     </parent>
     
@@ -24,6 +24,11 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
         
         <!-- Spring Cloud OAuth2 -->
@@ -83,5 +88,5 @@
             <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
-    
+
 </project>

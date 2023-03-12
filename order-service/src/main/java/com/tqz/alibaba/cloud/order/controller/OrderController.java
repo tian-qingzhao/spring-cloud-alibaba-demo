@@ -27,46 +27,55 @@ import org.springframework.web.bind.annotation.RestController;
 @Log4j2
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class OrderController {
-    
+
     private final OrderService orderService;
-    
+
     @GetMapping("selectByAccountCode")
     public ResultData<AccountDTO> selectByAccountCode(@RequestParam(defaultValue = "tian") String accountCode) {
         return orderService.selectByAccountCode(accountCode);
     }
-    
+
     @GetMapping("selectByAccountCodeAndProductCode")
     public ResultData<OrderVO> selectByAccountCodeAndProductCode(
             @RequestParam(defaultValue = "tian") String accountCode,
             @RequestParam(defaultValue = "001") String productCode) {
         return orderService.selectByAccountCodeAndProductCode(accountCode, productCode);
     }
-    
+
     @GetMapping("selectByAccountCodeAndProductCodeWithDubbo")
     public ResultData<OrderVO> selectByAccountCodeAndProductCodeWithDubbo(
             @RequestParam(defaultValue = "tian") String accountCode,
             @RequestParam(defaultValue = "001") String productCode) {
         return orderService.selectByAccountCodeAndProductCodeWithDubbo(accountCode, productCode);
     }
-    
+
     @PostMapping("/create")
     public ResultData<OrderDTO> create(OrderDTO orderDTO, @RequestParam(defaultValue = "success") String error) {
         log.info("create order:{}, error:{}", orderDTO, error);
         return orderService.createOrder(orderDTO, error);
     }
-    
-    
+
+
     /**
      * 根据订单号删除订单
      *
      * @param orderNo 订单编号
      */
-    @PostMapping("/delete")
+    @RequestMapping("/delete")
     public ResultData<String> delete(@RequestParam String orderNo) {
         log.info("delete order id is {}", orderNo);
-        orderService.delete(orderNo);
-        return ResultData.success("订单删除成功");
+        return orderService.delete(orderNo);
     }
-    
-    
+
+    /**
+     * 验证调用隐私接口
+     * @return ResultData<String>
+     */
+    @GetMapping("/secret")
+    public ResultData<String> secret(){
+        ResultData<String> secretValue = orderService.getSecretValue();
+        log.info(secretValue);
+        return secretValue;
+    }
+
 }

@@ -3,7 +3,6 @@ package com.tqz.alibaba.cloud.common.utils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
 
 /**
  * <p>
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Component;
  * @author tianqingzhao
  * @since 2021/2/25 9:59
  */
-@Component
 public class SpringContextHolder implements ApplicationContextAware {
     
     private static ApplicationContext applicationContext;

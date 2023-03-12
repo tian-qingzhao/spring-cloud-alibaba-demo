@@ -1,0 +1,5 @@
+application.yml文件是针对seata-server端的配置，
+seata-server.properties也是针对seata-server端的配置，
+但是如果application.yml文件里面配置了seata的配置类型为nacos配置中心之类的话，
+即seata.config.type的属性，
+需要把seata-server.properties扔在nacos配置中心里面。

@@ -2,6 +2,8 @@ server:
   port: 8021
 
 spring:
+  main:
+    allow-circular-references: true # Spring Boot 2.6.0版本开始默认禁止循环依赖
   application:
     name: product-service
   security:
@@ -51,6 +53,13 @@ security:
       id: product-service
       loadBalanced: true # 调用获取用户接口的时候是否需要使用负载均衡，true的话表示需要，并且 user-info-uri 需要使用服务名
       #user-info-uri: http://auth-service/auth/user/current/get
+
+# 指定日志级别
+logging:
+  level:
+    com.alibaba.nacos: error
+    org.apache.rocketmq.remoting.common: error
+  config: classpath:logback-custom.xml
 
 ### Seata分布式事务配置
 seata:

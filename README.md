@@ -85,6 +85,43 @@ docker run -d --name sentinel-dashboard -p 8858:8858 bladex/sentinel-dashboard:1
 4.sentinel官网地址：[https://sentinelguard.io/zh-cn/docs/dashboard.html](https://sentinelguard.io/zh-cn/docs/dashboard.html)
 ， github文档：[https://github.com/alibaba/Sentinel/wiki](https://github.com/alibaba/Sentinel/wiki)
 
+#### LogStash
+完整 `logstash.conf` 配置文件如下：
+```shell
+input {
+  beats {
+    port => 5044
+  }
+}
+
+input {
+  tcp {
+    #logstash需要使用tcp协议接受logstash传来的日志
+    port => 5064
+    codec => json_lines
+    type => "cloud_alibaba"
+  }
+}
+
+output {
+  # 如果不需要打印可以直接删除
+  stdout{
+    codec => rubydebug
+  }
+
+  # 通过type用于区分不同来源的日志
+  if [type] == "cloud_alibaba"{
+    elasticsearch {
+      hosts => ["http://localhost:9200"]
+	  # 索引不能使用大写字母
+      index => "%{[server-name]}-%{+YYYY.MM.dd}"
+      #user => "elastic"
+      #password => "changeMe"
+    }
+  }
+}
+```
+
 #### Docker构建每个模块的微服务
 
 1.首先在 cloud-bom、cloud-common、account-dubbo-api、product-dubbo-api 四个模块执行 `mvn clean install` 命令，否则打包不成功。

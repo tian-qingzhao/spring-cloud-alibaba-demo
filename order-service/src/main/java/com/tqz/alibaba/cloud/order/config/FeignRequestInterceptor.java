@@ -3,7 +3,7 @@ package com.tqz.alibaba.cloud.order.config;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -19,7 +19,7 @@ import java.util.UUID;
  * @author tianqingzhao
  * @since 2022/12/31 23:18
  */
-@Configuration
+@Component
 @Slf4j
 public class FeignRequestInterceptor implements RequestInterceptor {
     

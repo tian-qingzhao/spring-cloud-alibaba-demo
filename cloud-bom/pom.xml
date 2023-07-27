@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.tqz.alibaba.cloud</groupId>
     <artifactId>cloud-bom</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0</version>
-    
+
     <properties>
         <mybatis-plus.version>3.1.1</mybatis-plus.version>
         <mysql.version>5.1.47</mysql.version>
@@ -22,8 +22,9 @@
         <oauth2.version>2.2.4.RELEASE</oauth2.version>
         <junit.version>4.13.2</junit.version>
         <nimbusds.version>9.13</nimbusds.version>
+        <logstash-logback-encoder.version>6.6</logstash-logback-encoder.version>
     </properties>
-    
+
     <dependencyManagement>
         <dependencies>
             <!-- Cloud Common 模块依赖 -->
@@ -32,70 +33,70 @@
                 <artifactId>cloud-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            
+
             <!-- Account Dubbo Api 模块依赖 -->
             <dependency>
                 <groupId>com.tqz.alibaba.cloud</groupId>
                 <artifactId>account-dubbo-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
-    
+
             <!-- Product Dubbo Api 模块依赖 -->
             <dependency>
                 <groupId>com.tqz.alibaba.cloud</groupId>
                 <artifactId>product-dubbo-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            
+
             <!-- Mysql驱动 -->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.version}</version>
             </dependency>
-            
+
             <!-- Mybatis-Plus -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
-            
+
             <!-- Swagger2 -->
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger2</artifactId>
                 <version>${swagger.version}</version>
             </dependency>
-            
+
             <!-- swagger-ui界面 -->
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>${swagger.version}</version>
             </dependency>
-            
+
             <!-- swagger-bootstrap-ui界面 直接访问http://ip:端口号/doc.html-->
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>swagger-bootstrap-ui</artifactId>
                 <version>${swagger-bootstrap-ui.version}</version>
             </dependency>
-            
+
             <!-- hutool工具包 -->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
-            
+
             <!-- fastjson -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${alibaba.fastjson.version}</version>
             </dependency>
-            
+
             <!-- RocketMQ 对 Spring Boot 自动装配支持 -->
             <dependency>
                 <groupId>org.apache.rocketmq</groupId>
@@ -109,7 +110,7 @@
                 <artifactId>spring-cloud-starter-oauth2</artifactId>
                 <version>${oauth2.version}</version>
             </dependency>
-            
+
             <!-- Junit 单元测试 -->
             <dependency>
                 <groupId>junit</groupId>
@@ -117,14 +118,22 @@
                 <version>${junit.version}</version>
             </dependency>
 
+            <!-- JWT工具库 -->
             <dependency>
                 <groupId>com.nimbusds</groupId>
                 <artifactId>nimbus-jose-jwt</artifactId>
                 <version>${nimbusds.version}</version>
             </dependency>
+
+            <!-- logstash插件包 -->
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logstash-logback-encoder.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
     <repositories>
         <repository>
             <id>nexus-aliyun</id>

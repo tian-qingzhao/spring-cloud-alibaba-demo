@@ -127,6 +127,12 @@
                 <artifactId>feign-okhttp</artifactId>
                 <version>11.3</version>
             </dependency>-->
+
+        <!-- logstash插件包 -->
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+        </dependency>
     
     </dependencies>
     

@@ -19,16 +19,19 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Component
 public class InMemorySmsCodeCacheManager implements InitializingBean {
-    
+
     private final Map<String, Pair<Long, String>> cache = new ConcurrentHashMap<>();
-    
+
+    /**
+     * 55秒
+     */
     private static final long SMS_CODE_EXPIRE_TIME = 55000000000L;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         cleanOldSmsCode();
     }
-    
+
     /**
      * 根据手机号获取验证码，如果验证码不存在就获取一个并丢入，如果存在就直接返回
      *
@@ -38,11 +41,11 @@ public class InMemorySmsCodeCacheManager implements InitializingBean {
     public Pair<Long, String> getIfNotExitsGenerator(String mobile) {
         return cache.computeIfAbsent(mobile, this::generateSmsCode);
     }
-    
+
     public Pair<Long, String> get(String mobile) {
         return cache.get(mobile);
     }
-    
+
     /**
      * 生成验证码
      *
@@ -53,21 +56,21 @@ public class InMemorySmsCodeCacheManager implements InitializingBean {
         long codeL = System.nanoTime();
         String codeStr = Long.toString(codeL);
         String smsCode = codeStr.substring(codeStr.length() - 6);
-        
+
         log.info("手机号 {} 生成验证码 {}", mobile, smsCode);
-        
+
         return new Pair<>(codeL, smsCode);
     }
-    
+
     /**
      * 定时清除旧的验证码
      */
     private void cleanOldSmsCode() {
         ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
-        
+
         executor.scheduleWithFixedDelay(this::calculateIsExpire, 0, 1000, TimeUnit.MILLISECONDS);
     }
-    
+
     /**
      * 计算是否过期，如果过期就移除。 TODO 此类计算方法会有误差
      */
@@ -81,5 +84,5 @@ public class InMemorySmsCodeCacheManager implements InitializingBean {
             }
         }
     }
-    
+
 }

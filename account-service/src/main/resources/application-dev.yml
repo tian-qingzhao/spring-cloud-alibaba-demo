@@ -65,6 +65,7 @@ logging:
   level:
     root: info
     org.springframework.security: debug
+  config: classpath:logback-custom.xml
 
 ### RocketMQ配置
 rocketmq:

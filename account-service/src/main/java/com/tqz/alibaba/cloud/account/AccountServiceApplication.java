@@ -7,9 +7,7 @@ import com.alibaba.csp.sentinel.annotation.aspectj.SentinelResourceAspect;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringApplicationRunListener;
-import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.context.config.ConfigFileApplicationListener;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.boot.context.event.EventPublishingRunListener;
@@ -57,6 +55,16 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * 在解压的bin目录下，首先执行 `mqnamesrv.cmd` ，再执行 `mqbroker.cmd -n localhost:9876 -c ../conf/broker.conf` 。
  * </li>
  *
+ * <li>5.启动ElasticSearch，在解压的bin目录下，执行 `elasticsearch.bat` 命令。</li>
+ *
+ * <li>6.启动LogStash
+ * 解压之后，首先进入config目录，复制 `logstash-sample.conf` 文件为 `logstash.conf` ，
+ * 打开 `logstash.conf`，更改配置，完整配置参考 `README.md` 文件里面。
+ * 更改完之后回到bin目录，使用 `logstash.bat -f ../config/logstash.conf` 命令启动。
+ * </li>
+ *
+ * <li>7.启动Kibana，解压之后进入到bin目录，执行 `kibana.bat` 命令。</li>
+ *
  * <p>配置中心加载bootstrap文件：
  * {@link BootstrapApplicationListener}，监听 {@link ApplicationEnvironmentPreparedEvent} 事件，
  * 该事件由监听器 {@link EventPublishingRunListener} 发布，该监听器实现 {@link SpringApplicationRunListener} 接口，
@@ -68,8 +76,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @author tianqingzhao
  * @since 2021/2/23 10:26
  */
-//@SpringBootApplication // 如果不希望OAuth2默认的登录认证给拦截，使用下面的排除两个自动装配类
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class, ManagementWebSecurityAutoConfiguration.class})
+@SpringBootApplication // 如果不希望OAuth2默认的登录认证给拦截，使用下面的排除两个自动装配类
+//@SpringBootApplication(exclude = {SecurityAutoConfiguration.class, ManagementWebSecurityAutoConfiguration.class})
 @EnableScheduling
 //@EnableBinding({Sink.class})//接收消息
 @EnableSwagger2

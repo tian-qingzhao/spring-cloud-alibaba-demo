@@ -60,6 +60,13 @@
             <groupId>com.tqz.alibaba.cloud</groupId>
             <artifactId>cloud-common</artifactId>
         </dependency>
+
+        <!-- logstash插件包 -->
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>6.6</version>
+        </dependency>
     </dependencies>
 
     <build>

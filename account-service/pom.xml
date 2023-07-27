@@ -121,6 +121,12 @@
             <groupId>com.tqz.alibaba.cloud</groupId>
             <artifactId>account-dubbo-api</artifactId>
         </dependency>
+
+        <!-- logstash插件包 -->
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+        </dependency>
     </dependencies>
     
     <build>

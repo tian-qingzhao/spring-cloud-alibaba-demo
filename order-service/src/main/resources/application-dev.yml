@@ -5,7 +5,7 @@ spring:
   application:
     name: order-service
   main:
-    allow-circular-references: true # springboot从2.6禁止循环依赖
+    allow-circular-references: true # springboot从2.6.0禁止循环依赖
   security:
     user:
       name: admin
@@ -86,6 +86,7 @@ logging:
   level:
     com.alibaba.nacos: error
     org.apache.rocketmq.remoting.common: error
+  config: classpath:logback-custom.xml
 
 ### Seata配置
 seata:

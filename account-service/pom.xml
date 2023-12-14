@@ -127,6 +127,12 @@
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.tqz.cloud.alibaba</groupId>
+            <artifactId>cloud-component-starter</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
     
     <build>

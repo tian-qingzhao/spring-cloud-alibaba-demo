@@ -72,6 +72,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * {@link ConfigFileApplicationListener} 处理 classpath 目录下的配置文件，
  * 该类从 Spring Boot 2.4.x 版本被废弃，3.x版本被移除，
  * 从 Spring Boot 2.4.x 版本开始使用 <code>ConfigDataEnvironmentPostProcessor</code> 类取代。
+ * Spring Cloud 3.x 版本开始默认不只支持 `bootstrap` 配置文件名称从配置中心获取配置。
  *
  * @author tianqingzhao
  * @since 2021/2/23 10:26

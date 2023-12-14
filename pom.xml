@@ -20,6 +20,7 @@
         <module>cloud-dubbo</module>
         <module>cloud-dubbo/account-dubbo-api</module>
         <module>cloud-dubbo/product-dubbo-api</module>
+        <module>cloud-component-starter</module>
     </modules>
     
     <properties>

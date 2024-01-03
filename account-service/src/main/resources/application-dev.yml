@@ -30,7 +30,7 @@ spring:
       # 取消延迟加载
       eager: true
       datasource:
-        flow:
+        ds1:
           nacos:
             server-addr: localhost:8848
             data-id: ${spring.application.name}-sentinel-flow
@@ -122,3 +122,26 @@ tqz:
     enabled: true
     title: account-service在线接口平台
     description: account-service微服务相关接口
+
+# OpenAi 配置；ChatGPT、ChatGLM...
+openai:
+  sdk:
+    config:
+      # 状态；true = 开启、false 关闭
+      enabled: true
+      chat-glm:
+        # 官网地址
+        api-host: https://open.bigmodel.cn/
+        # 官网申请 https://open.bigmodel.cn/usercenter/apikeys
+        api-secret-key: 4e087e4135306ef4a676f0cce3cee560.sgP2DUs*****
+      xue-fei:
+        appid: b2162d31
+        api-key: 8685c6da7dc6c5993b0ae121c100d605
+        api-secret: MmUyYzQ5ODYxZWM1ODMyMmVjNzUxZjVm
+        api-host: https://spark-api.xf-yun.com/v1.1/chat
+      extended-xue-fei:
+        appid: b2162d31
+        api-key: 8685c6da7dc6c5993b0ae121c100d605
+        api-secret: MmUyYzQ5ODYxZWM1ODMyMmVjNzUxZjVm
+        api-host: https://spark-api.xf-yun.com/v1.1/chat
+        domain: general

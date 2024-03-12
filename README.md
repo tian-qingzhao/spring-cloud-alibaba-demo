@@ -11,7 +11,7 @@ docker pull mysql:5.7
 2.运行
 
 ```shell
-docker run -d --name mysql -p 5306:3306 -e MYSQL_ROOT_PASSWORD=tqz123456789. --privileged mysql:5.7
+docker run -d --name mysql -p 5306:3306 -e MYSQL_ROOT_PASSWORD=123456 --privileged mysql:5.7
 ```
 
 #### Nacos

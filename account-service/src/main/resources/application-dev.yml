@@ -48,7 +48,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://localhost:3306/cloud-alibaba?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
     username: root
-    password: tqz123456789.
+    password: 123456
     driver-class-name: com.mysql.jdbc.Driver
 
 mybatis-plus:

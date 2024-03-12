@@ -12,7 +12,6 @@
       <module fileurl="file://$PROJECT_DIR$/order-service/order-service.iml" filepath="$PROJECT_DIR$/order-service/order-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/cloud-dubbo/product-dubbo-api/product-dubbo-api.iml" filepath="$PROJECT_DIR$/cloud-dubbo/product-dubbo-api/product-dubbo-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/product-service/product-service.iml" filepath="$PROJECT_DIR$/product-service/product-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/spring-cloud-alibaba-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-alibaba-demo.iml" />
     </modules>
   </component>
 </project>

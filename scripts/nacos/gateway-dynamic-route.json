@@ -1,0 +1,42 @@
+[{
+  "id": "order-service",
+  "order": 0,
+  "predicates": [{
+    "args": {
+      "pattern": "/order/**"
+    },
+    "name": "Path"
+  }],
+  "uri": "lb://order-service"
+},{
+  "id": "product-service",
+  "order": 0,
+  "predicates": [{
+    "args": {
+      "pattern": "/product/**"
+    },
+    "name": "Path"
+  }],
+  "uri": "lb://product-service"
+},{
+  "id": "oauth2-server",
+  "order": 2,
+  "predicates": [{
+    "args": {
+      "pattern": "/oauth/**"
+    },
+    "name": "Path"
+  }],
+  "uri": "lb://oauth2-server"
+},{
+  "id": "account-service",
+  "order": 2,
+  "predicates": [{
+    "args": {
+      "pattern": "/account/**"
+    },
+    "name": "Path"
+  }],
+  "uri": "lb://account-service"
+}
+]

@@ -99,9 +99,61 @@ io/zh-cn/docs/dashboard.html)
 
 4.4 配置参考 scripts/sentinel/readme.md 文件
 
-#### 5. LogStash
+#### 5.Elasticsearch
 
-完整 `logstash.conf` 配置文件如下：
+在es的config目录下，打开 elasticsearch.yml 文件
+```yaml
+cluster.name: elk-application
+node.name: node-1
+network.host: 0.0.0.0
+http.port: 9200
+discovery.seed_hosts: ["127.0.0.1"]
+cluster.initial_master_nodes: ["node-1"]
+
+# 如果不想开启鉴权，可通过 xpack.security.enabled: false 配置关闭
+```
+
+然后在bin目录下启动elasticsearch脚本，启动成功后浏览器可访问 127.0.0.1:9200 ， 显示以下内容表示正常。 
+```json
+{
+    "name": "node-1",
+    "cluster_name": "my-application",
+    "cluster_uuid": "Oqloyq_vR5qYdqcDfqyLAA",
+    "version": {
+        "number": "8.6.1",
+        "build_flavor": "default",
+        "build_type": "zip",
+        "build_hash": "180c9830da956993e59e2cd70eb32b5e383ea42c",
+        "build_date": "2023-01-24T21:35:11.506992272Z",
+        "build_snapshot": false,
+        "lucene_version": "9.4.2",
+        "minimum_wire_compatibility_version": "7.17.0",
+        "minimum_index_compatibility_version": "7.0.0"
+    },
+    "tagline": "You Know, for Search"
+}
+```
+
+#### 6.Kibana
+
+修改config目录下的kibana.yml文件，
+```yaml
+# 端口
+server.port: 5601
+# 指定本机ip让外部能访问
+server.host: "0.0.0.0"
+# 请求数据指向的elasticsearch服务器
+elasticsearch.hosts: ["http://ip:9200"]
+# 中文汉化
+i18n.locale: "zh-CN" 
+```
+
+Kibana默认情况下也不允许使用root用户启动，你可以选择在启动命令后加上--allow-root参数，
+在bin目录下执行 kibana 脚本即可启动，启动成功后可访问 http://ip:5601。
+
+#### 7. LogStash
+
+在config中复制logstash-sample.conf为logstash.conf， 完整 `logstash.conf` 配置文件如下：
 
 ```shell
 input {
@@ -138,16 +190,25 @@ output {
 }
 ```
 
-#### 6. Docker构建每个模块的微服务
+然后通过 ./logstash -f ../config/logstash.conf 启动。
 
-6.1 首先在 cloud-bom、cloud-common、account-dubbo-api、product-dubbo-api
+启动后端服务之后，通过logstash的启动面板可以看到日志已经传输到了ElasticSearch，并且已经使用服务名称作为索引名。
+
+在kibana上面点击Discover，然后点击`创建数据视图`，<img src="scripts/img/ELK1.png">
+然后输入索引名称和索引模式，
+索引名称可用服务名称-*，索引模式可使用**。
+<img src="scripts/img/ELK2.png">
+
+#### 8. Docker构建每个模块的微服务
+
+8.1 首先在 cloud-bom、cloud-common、account-dubbo-api、product-dubbo-api
 四个模块执行 `mvn clean install` 命令，否则打包不成功。
 
-6.2
+8.2
 进入到每个微服务模块，执行该命令构建Docker镜像： `mvn clean install -P docker docker:build -DskipTests`。
 通过 `-P docker` 参数指定父pom里面定义的profile对应id。
 
-6.3
+8.3
 根据Docker镜像创建容器，例如account-service微服务：`docker run -d --name account-service -p 8010:8010
 account-service`
 
